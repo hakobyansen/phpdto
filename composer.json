@@ -1,0 +1,29 @@
+{
+  "name": "codebot/php-dto",
+  "description": "Package for PHP data transfer objects generation.",
+  "require-dev": {
+    "phpunit/phpunit": "^8.2"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Senik Hakobyan",
+      "email": "sen.hakobyan@gmail.com"
+    }
+  ],
+  "bin": [],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "PhpDto\\": "src/"
+    },
+    "psr-0": {
+      "PhpDto\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  }
+}

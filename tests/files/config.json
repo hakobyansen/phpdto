@@ -1,0 +1,10 @@
+{
+  "class": "item",
+  "namespace_postfix": "",
+  "rules": {
+    "id": "int",
+    "count": "nullable|int",
+    "name": "string",
+    "description": "nullable|string"
+  }
+}

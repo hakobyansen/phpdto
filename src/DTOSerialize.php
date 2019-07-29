@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTO;
+namespace PhpDto;
 
 trait DTOSerialize
 {
@@ -8,7 +8,7 @@ trait DTOSerialize
      * @param array $dtos
      * @return array
      */
-    public static function serialize( array $dtos ): array
+    public static function serializeArray( array $dtos ): array
     {
         $results = [];
 
@@ -30,4 +30,20 @@ trait DTOSerialize
 
         return $results;
     }
+
+	public function serializeSingle( DTO $dto )
+	{
+		$arr = [];
+
+		foreach ( (array)get_object_vars($dto) as $key => $value )
+		{
+	 		$key = str_replace('_', '', $key);
+
+			$arr[$key] = $value;
+		}
+
+		$obj = (object)$arr;
+
+		return $obj;
+	}
 }

@@ -1,0 +1,62 @@
+<?php
+
+namespace PhpDto\Services;
+
+use PhpDto\Cli\Handler;
+use PhpDto\Command\GenerateDTO;
+use PhpDto\Command\Invoker;
+use PhpDto\Command\Receiver;
+
+class Maker
+{
+	/**
+	 * @var array $_configs
+	 */
+	private $_configs;
+
+	/**
+	 * @var Handler $_handler
+	 */
+	private $_handler;
+
+	/**
+	 * Maker constructor.
+	 * @param array $configs
+	 * @param Handler $handler
+	 */
+	public function __construct( array $configs, Handler $handler )
+	{
+		$this->_configs = $configs;
+		$this->_handler = $handler;
+	}
+
+	/**
+	 * @throws \Exception
+	 */
+	public function makeDTO()
+	{
+		$dtoBuilder = new DTOBuilder();
+
+		$className = $dtoBuilder->getClassName( $this->_configs );
+
+		$classDir = __DIR__ .'/' .$className.'.php';
+
+		if( file_exists( $classDir ) )
+		{
+			$message = "$className already exists.\n";
+
+			throw new \Exception( $message );
+		}
+
+		$handle = fopen( $classDir, 'a+' );
+
+		$invoker = new Invoker();
+		$invoker->setCommand( new GenerateDTO( new Receiver()) )
+			->run( $handle, $this->_configs );
+
+		fclose($handle);
+	}
+
+	public function makeUnitTest()
+	{}
+}
