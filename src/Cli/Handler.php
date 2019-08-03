@@ -20,7 +20,7 @@ class Handler
 	private $_classPrefix;
 
 	/**
-	 * @var string $_namespacePostfix
+	 * @var null|string $_namespacePostfix
 	 */
 	private $_namespacePostfix;
 
@@ -67,18 +67,18 @@ class Handler
 	}
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
-	public function getNamespacePostfix(): string
+	public function getNamespacePostfix(): ?string
 	{
 		return $this->_namespacePostfix;
 	}
 
 	/**
-	 * @param string $namespacePostfix
+	 * @param string|null $namespacePostfix
 	 * @return Handler
 	 */
-	public function setNamespacePostfix( string $namespacePostfix ): Handler
+	public function setNamespacePostfix( ?string $namespacePostfix ): Handler
 	{
 		$this->_namespacePostfix = $namespacePostfix;
 		return $this;
