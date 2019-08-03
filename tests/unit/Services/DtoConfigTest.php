@@ -20,7 +20,6 @@ class DtoConfigTest extends TestCase
 
 	protected function setUp(): void
 	{
-		putenv('PHP_DTO_CONFIG_FILES_DIR=./tests/files');
 		parent::setUp();
 
 		$this->_handler   = new Handler();
