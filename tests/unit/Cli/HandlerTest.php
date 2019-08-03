@@ -54,5 +54,13 @@ class HandlerTest extends TestCase
 			$this->_handler->getConfigFile(),
 			'item_file'
 		);
+
+		// Making namespace to be null to test it with nullable value
+		unset($this->_args[1]);
+		$this->_handler->setNamespacePostfix( null );
+
+		$this->_handler->handleArgs( $this->_args );
+
+		$this->assertNull( $this->_handler->getNamespacePostfix() );
 	}
 }
