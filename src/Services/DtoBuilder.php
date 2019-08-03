@@ -5,7 +5,7 @@ namespace PhpDto\Services;
 use PhpDto\DTO;
 use PhpDto\DTOSerialize;
 
-class DTOBuilder
+class DtoBuilder
 {
 	/**
 	 * @param array $configs

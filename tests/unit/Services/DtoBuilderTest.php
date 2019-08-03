@@ -4,13 +4,13 @@ namespace Tests\Unit\Services;
 
 use PhpDto\DTO;
 use PhpDto\DTOSerialize;
-use PhpDto\Services\DTOBuilder;
+use PhpDto\Services\DtoBuilder;
 use PHPUnit\Framework\TestCase;
 
 class DtoBuilderTest extends TestCase
 {
 	/**
-	 * @var DTOBuilder $_builder;
+	 * @var DtoBuilder $_builder;
 	 */
 	private $_builder;
 
@@ -23,7 +23,7 @@ class DtoBuilderTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->_builder = new DTOBuilder();
+		$this->_builder = new DtoBuilder();
 
 		$this->_configs = [
 			'class' => 'item',

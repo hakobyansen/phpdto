@@ -3,7 +3,7 @@
 namespace PhpDto\Command;
 
 use PhpDto\Services\ClassVO;
-use PhpDto\Services\DTOBuilder;
+use PhpDto\Services\DtoBuilder;
 
 class GenerateDTO extends Command
 {
@@ -25,7 +25,7 @@ class GenerateDTO extends Command
 	public function mapClassVO( array $dtoConfigs ): ClassVO
 	{
 		$ValueObject = new ClassVO();
-		$DtoBuilder = new DTOBuilder();
+		$DtoBuilder = new DtoBuilder();
 
 		$ValueObject->setNamespace( $DtoBuilder->getNamespace( $dtoConfigs ) )
 			->setModules( $DtoBuilder->getModules() )

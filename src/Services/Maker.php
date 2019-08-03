@@ -35,7 +35,7 @@ class Maker
 	 */
 	public function makeDTO()
 	{
-		$dtoBuilder = new DTOBuilder();
+		$dtoBuilder = new DtoBuilder();
 
 		$className = $dtoBuilder->getClassName( $this->_configs );
 
