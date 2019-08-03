@@ -1,5 +1,5 @@
 {
-  "name": "codebot/php-dto",
+  "name": "codebot/phpdto",
   "description": "Package for PHP data transfer objects generation.",
   "require-dev": {
     "phpunit/phpunit": "^8.2"
@@ -11,7 +11,7 @@
       "email": "sen.hakobyan@gmail.com"
     }
   ],
-  "bin": [],
+  "bin": ["bin/phpdto"],
   "require": {
     "ext-json": "*"
   },
