@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+$destination = getcwd() . '/phpdto.json';
+$source = __DIR__.'//..//configs//phpdto.json';
+
+if ( !file_exists($destination) )
+{
+    if( copy( $source, $destination ) )
+    {
+        echo 'phpdto.json configuration file successfully copied to ' . getcwd() . " directory.\n";
+    }
+    else
+    {
+        echo "Something went wrong.";
+    }
+}
+else
+{
+    echo  "Initialization failed because {$destination} file already exists.\n";
+}
