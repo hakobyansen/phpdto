@@ -6,16 +6,19 @@ require 'vendor\autoload.php';
 use PhpDto\Cli\Handler;
 use PhpDto\Services\Maker;
 use PhpDto\Services\DtoPattern;
+use PhpDto\Services\DtoConfig;
 
 try
 {
+    (new DtoConfig())->setVariables( getcwd().'//phpdto.json' );
+
 	$handler = new Handler();
 	$handler->handleArgs( $_SERVER['argv'] );
 
-	$dtoConfig = new DtoPattern();
-	$dtoConfig->setPattern( $handler );
+	$dtoPattern = new DtoPattern();
+	$dtoPattern->setPattern( $handler );
 
-	$maker = new Maker( $dtoConfig->getPattern(), $handler );
+	$maker = new Maker( $dtoPattern->getPattern(), $handler );
 
 	$maker->makeDTO();
 
@@ -26,5 +29,5 @@ try
 }
 catch ( \Exception $exception )
 {
-	echo $exception->getMessage();
+	echo $exception->getTraceAsString();
 }
