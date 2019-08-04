@@ -2,72 +2,36 @@
 
 namespace Tests\Unit\Services;
 
-use PhpDto\Cli\Handler;
-use PhpDto\Services\DtoPattern;
+use PhpDto\Services\DtoConfig;
 use PHPUnit\Framework\TestCase;
 
 class DtoConfigTest extends TestCase
 {
 	/**
-	 * @var Handler $_handler
-	 */
-	private $_handler;
-
-	/**
-	 * @var DtoPattern $_dtoConfig
+	 * @var DtoConfig $_dtoConfig
 	 */
 	private $_dtoConfig;
-
+	
 	protected function setUp(): void
 	{
 		parent::setUp();
 
-		$this->_handler   = new Handler();
-		$this->_dtoConfig = new DtoPattern();
+		$this->_dtoConfig = new DtoConfig();
+		$configFilePath = getcwd() . '/tests/files/phpdto.json';
 
-		$args = [
-			'-c=Item',
-			'-n=\Item',
-			'-r=id:int,count:nullable|int,name:string,description:nullable|string',
-			'-f=config'
-		];
-
-		$this->_handler->handleArgs( $args );
-		$this->_dtoConfig->setPattern( $this->_handler );
+		$this->_dtoConfig->setVariables( $configFilePath );
 	}
 
-	public function testSetConfigs()
+	public function testGetVariable()
 	{
-		$expected = [
-			'class' => 'Item',
-			'namespace_postfix' => '\Item',
-			'rules' => [
-				'id' => 'int',
-				'count' => 'nullable|int',
-				'name' => 'string',
-				'description' => 'nullable|string'
-			],
-			'file' => 'config'
-		];
+		$patternsDir = $this->_dtoConfig->getVariable( DtoConfig::PATTERNS_DIR );
+		$dtoNamespace = $this->_dtoConfig->getVariable( DtoConfig::DTO_NAMESPACE );
+		$classPostfix = $this->_dtoConfig->getVariable( DtoConfig::CLASS_POSTFIX );
+		$unitTestNamespace = $this->_dtoConfig->getVariable( DtoConfig::UNIT_TESTS_NAMESPACE );
 
-		$this->assertEquals(
-			$expected, $this->_dtoConfig->getPattern()
-		);
-	}
-
-	public function testGetRulesFromConfig()
-	{
-		$rulesConfig = 'id:int,count:nullable|int,name:string,description:nullable|string';
-
-		$expected = [
-			'id' => 'int',
-			'count' => 'nullable|int',
-			'name' => 'string',
-			'description'=> 'nullable|string'
-		];
-
-		$this->assertEquals(
-			$expected, $this->_dtoConfig->getRulesFromPattern( $rulesConfig )
-		);
+		$this->assertEquals( $patternsDir, 'phpdto_patterns' );
+		$this->assertEquals( $dtoNamespace, 'App\Dto' );
+		$this->assertEquals( $classPostfix, 'Dto' );
+		$this->assertEquals( $unitTestNamespace, 'Tests\Unit\Dto'  );
 	}
 }

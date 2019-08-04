@@ -27,7 +27,7 @@ class HandlerTest extends TestCase
 			'-c=Item',
 			'-n=\Item',
 			'-r=id:int,count:nullable|int,name:string,description:nullable|string',
-			'-f=item_file'
+			'-f=dto_pattern'
 		];
 	}
 
@@ -52,7 +52,7 @@ class HandlerTest extends TestCase
 
 		$this->assertEquals(
 			$this->_handler->getConfigFile(),
-			'item_file'
+			'dto_pattern'
 		);
 
 		// Making namespace to be null to test it with nullable value
