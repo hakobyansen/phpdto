@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use PhpDto\DTO;
-use PhpDto\DTOSerialize;
+use PhpDto\Dto;
+use PhpDto\DtoSerialize;
 use PHPUnit\Framework\TestCase;
 
 class DtoTest extends TestCase
@@ -23,7 +23,7 @@ class DtoTest extends TestCase
 
 	public function testMapSingle()
 	{
-		$dto = MockDTO::mapSingle( $this->_mockData );
+		$dto = MockDto::mapSingle( $this->_mockData );
 
 		$this->assertEquals( $this->_mockData['name'], $dto->getName() );
 		$this->assertEquals( $this->_mockData['count'], $dto->getCount() );
@@ -31,14 +31,14 @@ class DtoTest extends TestCase
 
 		$this->_mockData['name'] = null;
 
-		$dto = MockDTO::mapSingle( $this->_mockData );
+		$dto = MockDto::mapSingle( $this->_mockData );
 
 		$this->assertNull( $dto->getName() );
 	}
 
 	public function testMapSingleSerialized()
 	{
-		$dtoSerialized = MockDTO::mapSingle( $this->_mockData, true );
+		$dtoSerialized = MockDto::mapSingle( $this->_mockData, true );
 
 		$this->assertEquals( $this->_mockData['name'], $dtoSerialized->name );
 		$this->assertEquals( $this->_mockData['count'], $dtoSerialized->count );
@@ -51,7 +51,7 @@ class DtoTest extends TestCase
 			$this->_mockData
 		];
 
-		$dtos = MockDTO::mapArray( $data );
+		$dtos = MockDto::mapArray( $data );
 
 		$dto = $dtos[0];
 
@@ -66,7 +66,7 @@ class DtoTest extends TestCase
 			$this->_mockData
 		];
 
-		$dtos = MockDTO::mapArray( $data, true );
+		$dtos = MockDto::mapArray( $data, true );
 
 		$dtoSerialized = $dtos[0];
 
@@ -76,9 +76,9 @@ class DtoTest extends TestCase
 	}
 }
 
-class MockDTO extends DTO
+class MockDto extends Dto
 {
-	use DTOSerialize;
+	use DtoSerialize;
 
 	private $_name;
 	private $_count;

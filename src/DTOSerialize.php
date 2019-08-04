@@ -2,7 +2,7 @@
 
 namespace PhpDto;
 
-trait DTOSerialize
+trait DtoSerialize
 {
     /**
      * @param array $dtos
@@ -14,14 +14,7 @@ trait DTOSerialize
 
         foreach ( $dtos as $dto )
         {
-            $arr = [];
-
-            foreach ((array)get_object_vars($dto) as $key => $value )
-            {
-                $key = str_replace('_', '', $key);
-
-                $arr[$key] = $value;
-            }
+            $arr = self::castToArray( $dto );
 
             $obj = (object)$arr;
 
@@ -31,19 +24,36 @@ trait DTOSerialize
         return $results;
     }
 
-	public function serializeSingle( DTO $dto )
+	/**
+	 * @param Dto $dto
+	 * @return \stdClass
+	 */
+	public static function serializeSingle( Dto $dto ): \stdClass
 	{
-		$arr = [];
-
-		foreach ( (array)get_object_vars($dto) as $key => $value )
-		{
-	 		$key = str_replace('_', '', $key);
-
-			$arr[$key] = $value;
-		}
+		$arr = self::castToArray( $dto );
 
 		$obj = (object)$arr;
 
 		return $obj;
+	}
+
+	/**
+	 * @param Dto $dto
+	 * @return array
+	 */
+	public static function castToArray( Dto $dto ): array
+	{
+		$arr = [];
+
+		$vars = (array)get_object_vars($dto);
+
+		foreach ( $vars as $key => $value )
+		{
+			$key = str_replace('_', '', $key);
+
+			$arr[$key] = $value;
+		}
+
+		return $arr;
 	}
 }

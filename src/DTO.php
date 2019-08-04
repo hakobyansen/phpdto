@@ -2,9 +2,9 @@
 
 namespace PhpDto;
 
-abstract class DTO
+abstract class Dto
 {
-	use DTOSerialize;
+	use DtoSerialize;
 
     /**
      * @param array $items
@@ -31,7 +31,7 @@ abstract class DTO
     /**
      * @param array $item
      * @param bool $shouldSerialize
-     * @return DTO|\stdClass
+     * @return Dto|\stdClass
      */
     public static function mapSingle(array $item, bool $shouldSerialize = false)
     {

@@ -29,5 +29,5 @@ try
 }
 catch ( \Exception $exception )
 {
-	echo $exception->getTraceAsString();
+	echo $exception->getMessage();
 }

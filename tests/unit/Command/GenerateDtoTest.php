@@ -4,8 +4,8 @@ namespace Tests\Unit\Command;
 
 use PhpDto\Command\GenerateDTO;
 use PhpDto\Command\Receiver;
-use PhpDto\DTO;
-use PhpDto\DTOSerialize;
+use PhpDto\Dto;
+use PhpDto\DtoSerialize;
 use PHPUnit\Framework\TestCase;
 
 class GenerateDtoTest extends TestCase
@@ -54,12 +54,12 @@ class GenerateDtoTest extends TestCase
 		);
 
 		$this->assertEquals(
-			[ DTO::class, DTOSerialize::class ],
+			[],
 			$classVO->getModules()
 		);
 
 		$this->assertEquals(
-			[ 'DTOSerialize' ],
+			[ 'PhpDto\DtoSerialize' ],
 			$classVO->getTraits()
 		);
 
