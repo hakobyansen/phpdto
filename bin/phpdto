@@ -5,17 +5,17 @@ require 'vendor\autoload.php';
 
 use PhpDto\Cli\Handler;
 use PhpDto\Services\Maker;
-use PhpDto\Services\DtoConfig;
+use PhpDto\Services\DtoPattern;
 
 try
 {
 	$handler = new Handler();
 	$handler->handleArgs( $_SERVER['argv'] );
 
-	$dtoConfig = new DtoConfig();
-	$dtoConfig->setConfigs( $handler );
+	$dtoConfig = new DtoPattern();
+	$dtoConfig->setPattern( $handler );
 
-	$maker = new Maker( $dtoConfig->getConfigs(), $handler );
+	$maker = new Maker( $dtoConfig->getPattern(), $handler );
 
 	$maker->makeDTO();
 

@@ -4,54 +4,54 @@ namespace PhpDto\Services;
 
 use PhpDto\Cli\Handler;
 
-class DtoConfig
+class DtoPattern
 {
 	/**
-	 * @var null|array $_configs
+	 * @var null|array $_pattern
 	 */
-	private $_configs;
+	private $_pattern;
 
 	/**
 	 * @param Handler $handler
 	 */
-	public function setConfigs( Handler $handler ): void
+	public function setPattern( Handler $handler ): void
 	{
 		if( !$handler->getRules() )
 		{
 			$fileDir = getenv('PHP_DTO_CONFIG_FILES_DIR').__DIR__ .'//' . $handler->getConfigFile().'.json';
 
 			$resource = fopen($fileDir, 'r');
-			$configsJson = fread($resource, filesize($fileDir));
+			$patternJson = fread($resource, filesize($fileDir));
 			fclose($resource);
 
-			$configs = json_decode($configsJson, true);
+			$pattern = json_decode($patternJson, true);
 		}
 		else
 		{
-			$configs = [
+			$pattern = [
 				'class' => $handler->getClassPrefix(),
 				'namespace_postfix' => $handler->getNamespacePostfix(),
-				'rules' => $this->getRulesFromConfig( $handler->getRules() ),
+				'rules' => $this->getRulesFromPattern( $handler->getRules() ),
 				'file' => $handler->getConfigFile()
 			];
 		}
 
-		$this->_configs = $configs;
+		$this->_pattern = $pattern;
 	}
 
 	/**
 	 * @return array|null
 	 */
-	public function getConfigs(): ?array
+	public function getPattern(): ?array
 	{
-		return $this->_configs;
+		return $this->_pattern;
 	}
 
 	/**
 	 * @param string $rulesConfig
 	 * @return array
 	 */
-	public function getRulesFromConfig( string $rulesConfig ): array
+	public function getRulesFromPattern(string $rulesConfig ): array
 	{
 		$rules = [];
 

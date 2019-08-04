@@ -3,7 +3,7 @@
 namespace Tests\Unit\Services;
 
 use PhpDto\Cli\Handler;
-use PhpDto\Services\DtoConfig;
+use PhpDto\Services\DtoPattern;
 use PHPUnit\Framework\TestCase;
 
 class DtoConfigTest extends TestCase
@@ -14,7 +14,7 @@ class DtoConfigTest extends TestCase
 	private $_handler;
 
 	/**
-	 * @var DtoConfig $_dtoConfig
+	 * @var DtoPattern $_dtoConfig
 	 */
 	private $_dtoConfig;
 
@@ -23,7 +23,7 @@ class DtoConfigTest extends TestCase
 		parent::setUp();
 
 		$this->_handler   = new Handler();
-		$this->_dtoConfig = new DtoConfig();
+		$this->_dtoConfig = new DtoPattern();
 
 		$args = [
 			'-c=Item',
@@ -33,7 +33,7 @@ class DtoConfigTest extends TestCase
 		];
 
 		$this->_handler->handleArgs( $args );
-		$this->_dtoConfig->setConfigs( $this->_handler );
+		$this->_dtoConfig->setPattern( $this->_handler );
 	}
 
 	public function testSetConfigs()
@@ -51,7 +51,7 @@ class DtoConfigTest extends TestCase
 		];
 
 		$this->assertEquals(
-			$expected, $this->_dtoConfig->getConfigs()
+			$expected, $this->_dtoConfig->getPattern()
 		);
 	}
 
@@ -67,7 +67,7 @@ class DtoConfigTest extends TestCase
 		];
 
 		$this->assertEquals(
-			$expected, $this->_dtoConfig->getRulesFromConfig( $rulesConfig )
+			$expected, $this->_dtoConfig->getRulesFromPattern( $rulesConfig )
 		);
 	}
 }
