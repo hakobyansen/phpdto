@@ -16,6 +16,9 @@
     "php": ">=7.1",
     "ext-json": "*"
   },
+  "scripts": {
+    "post-install-cmd": ["php scripts/post-install.php"]
+  },
   "autoload": {
     "psr-4": {
       "PhpDto\\": "src/"
