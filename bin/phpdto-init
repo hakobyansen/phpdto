@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
+$source = __DIR__.'//..//configs//phpdto-default.json';
 $destination = getcwd() . '/phpdto.json';
-$source = __DIR__.'//..//configs//phpdto.json';
 
 if ( !file_exists($destination) )
 {
