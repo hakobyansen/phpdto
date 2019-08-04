@@ -17,7 +17,7 @@ class DtoConfigTest extends TestCase
 		parent::setUp();
 
 		$this->_dtoConfig = new DtoConfig();
-		$configFilePath = getcwd() . '/tests/files/phpdto.json';
+		$configFilePath = getcwd() . '/configs/phpdto-default.json';
 
 		$this->_dtoConfig->setVariables( $configFilePath );
 	}
