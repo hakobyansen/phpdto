@@ -11,13 +11,10 @@
       "email": "sen.hakobyan@gmail.com"
     }
   ],
-  "bin": ["bin/phpdto"],
+  "bin": ["bin\phpdto-init", "bin/phpdto"],
   "require": {
     "php": ">=7.1",
     "ext-json": "*"
-  },
-  "scripts": {
-    "post-install-cmd": ["php scripts/post-install.php"]
   },
   "autoload": {
     "psr-4": {
