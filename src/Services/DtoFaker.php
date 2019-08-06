@@ -16,7 +16,7 @@ class DtoFaker
 	{
 		$data = [];
 
-		$obj = json_decode(file_get_contents($patternPath) );
+		$obj = json_decode( file_get_contents($patternPath) );
 
 		for( $i = 0; $i < $length; $i++ )
 		{
@@ -33,7 +33,7 @@ class DtoFaker
 	 */
 	public static function fakeSingle( string $patternPath ): array
 	{
-		$obj = json_decode(file_get_contents($patternPath) );
+		$obj = json_decode( file_get_contents($patternPath) );
 
 		return self::getItem( $obj );
 	}
