@@ -16,14 +16,14 @@ class Receiver
 	{
 		$stick = new Sticker();
 
-		$stick->head( $classVO->getNamespace() )->eol();
+		$stick->head( $classVO->getNamespace() )->doubleEol();
 
 		if( !empty( $classVO->getModules() ) )
 		{
 			$stick->eol()->modules( $classVO->getModules() )->eol();
 		}
 
-		$stick->class( $classVO->getClassName(), Dto::class );
+		$stick->class( $classVO->getClassName(), '\\'.Dto::class );
 
 		if( !empty( $classVO->getTraits() ) )
 		{

@@ -45,7 +45,7 @@ class DtoBuilder
 	public function getTraits(): array
 	{
 		return [
-			DtoSerialize::class
+			'\\'.DtoSerialize::class
 		];
 	}
 
