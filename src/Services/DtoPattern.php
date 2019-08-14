@@ -18,7 +18,7 @@ class DtoPattern
 	{
 		if( !$handler->getRules() )
 		{
-			$fileDir = getenv('PHP_DTO_CONFIG_FILES_DIR').__DIR__ .'//' . $handler->getConfigFile().'.json';
+			$fileDir = getenv('PHP_DTO_PATTERNS_DIR').__DIR__ .'//' . $handler->getConfigFile().'.json';
 
 			$resource = fopen($fileDir, 'r');
 			$patternJson = fread($resource, filesize($fileDir));
