@@ -2,14 +2,14 @@
 
 namespace Tests\Unit\Command;
 
-use PhpDto\Command\GenerateDTO;
+use PhpDto\Command\GenerateDto;
 use PhpDto\Command\Receiver;
 use PHPUnit\Framework\TestCase;
 
 class GenerateDtoTest extends TestCase
 {
 	/**
-	 * @var GenerateDTO $_command
+	 * @var GenerateDto $_command
 	 */
 	private $_command;
 	/**
@@ -21,7 +21,7 @@ class GenerateDtoTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->_command = new GenerateDTO( new Receiver() );
+		$this->_command = new GenerateDto( new Receiver() );
 
 		$this->_configs = [
 			'class' => 'item',

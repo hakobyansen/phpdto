@@ -3,7 +3,7 @@
 namespace PhpDto\Services;
 
 use PhpDto\Cli\Handler;
-use PhpDto\Command\GenerateDTO;
+use PhpDto\Command\GenerateDto;
 use PhpDto\Command\Invoker;
 use PhpDto\Command\Receiver;
 
@@ -51,7 +51,7 @@ class Maker
 		$handle = fopen( $classDir, 'a+' );
 
 		$invoker = new Invoker();
-		$invoker->setCommand( new GenerateDTO( new Receiver()) )
+		$invoker->setCommand( new GenerateDto( new Receiver()) )
 			->run( $handle, $this->_configs );
 
 		fclose($handle);
