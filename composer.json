@@ -1,6 +1,6 @@
 {
   "name": "codebot/phpdto",
-  "description": "Package for PHP data transfer objects generation.",
+  "description": "CLI tool for PHP data transfer objects generation.",
   "require-dev": {
     "phpunit/phpunit": "^8.2"
   },
