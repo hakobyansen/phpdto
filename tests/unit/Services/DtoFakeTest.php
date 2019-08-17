@@ -16,7 +16,9 @@ class DtoFakeTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->_patternPath = __DIR__ . '/../../files/dto_pattern.json';
+		putenv('PHP_DTO_PATTERNS_DIR='.__DIR__ . '/../../files/');
+
+		$this->_patternPath = 'dto_pattern.json';
 	}
 
 	/**
@@ -24,7 +26,7 @@ class DtoFakeTest extends TestCase
 	 */
 	public function testFakeSingle()
 	{
-		$data = DtoFaker::fakeSingle( $this->_patternPath );
+		$data = DtoFaker::fakeSingleFromPattern( $this->_patternPath );
 
 		$this->assertTrue( is_int($data['id']) );
 		$this->assertTrue( is_int($data['count']) || is_null($data['count']) );
@@ -38,7 +40,7 @@ class DtoFakeTest extends TestCase
 	public function testFakeArray()
 	{
 		$length = 5;
-		$data = DtoFaker::fakeArray( $this->_patternPath, $length );
+		$data = DtoFaker::fakeArrayFromPattern( $this->_patternPath, $length );
 
 		$this->assertEquals( $length, count($data) );
 	}

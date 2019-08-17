@@ -12,10 +12,11 @@ class DtoFaker
 	 * @return array
 	 * @throws \Exception
 	 */
-	public static function fakeArray( string $patternPath, int $length = 10 ): array
+	public static function fakeArrayFromPattern( string $patternPath, int $length = 10 ): array
 	{
 		$data = [];
 
+		$patternPath = getenv('PHP_DTO_PATTERNS_DIR').'/'.$patternPath;
 		$obj = json_decode( file_get_contents($patternPath) );
 
 		for( $i = 0; $i < $length; $i++ )
@@ -31,8 +32,9 @@ class DtoFaker
 	 * @return array
 	 * @throws \Exception
 	 */
-	public static function fakeSingle( string $patternPath ): array
+	public static function fakeSingleFromPattern( string $patternPath ): array
 	{
+		$patternPath = getenv('PHP_DTO_PATTERNS_DIR').'/'.$patternPath;
 		$obj = json_decode( file_get_contents($patternPath) );
 
 		return self::getItem( $obj );
