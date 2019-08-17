@@ -2,22 +2,32 @@
 
 namespace PhpDto\Services;
 
-use phpDocumentor\Reflection\Types\Mixed_;
-
 class DtoFaker
 {
+	/**
+	 * DtoFaker constructor.
+	 */
+	public function __construct()
+	{
+		(new DtoConfig())->setVariables();
+	}
+
 	/**
 	 * @param string $patternPath
 	 * @param int $length
 	 * @return array
 	 * @throws \Exception
 	 */
-	public static function fakeArrayFromPattern( string $patternPath, int $length = 10 ): array
+	public function fakeArrayFromPattern( string $patternPath, int $length = 10 ): array
 	{
 		$data = [];
 
 		$patternPath = getenv('PHP_DTO_PATTERNS_DIR').'/'.$patternPath;
-		$obj = json_decode( file_get_contents($patternPath) );
+
+		if( file_exists($patternPath) )
+		{
+			$obj = json_decode( file_get_contents($patternPath) );
+		}
 
 		for( $i = 0; $i < $length; $i++ )
 		{
@@ -32,12 +42,19 @@ class DtoFaker
 	 * @return array
 	 * @throws \Exception
 	 */
-	public static function fakeSingleFromPattern( string $patternPath ): array
+	public function fakeSingleFromPattern( string $patternPath ): array
 	{
-		$patternPath = getenv('PHP_DTO_PATTERNS_DIR').'/'.$patternPath;
-		$obj = json_decode( file_get_contents($patternPath) );
+		$data = [];
 
-		return self::getItem( $obj );
+		$patternPath = getenv('PHP_DTO_PATTERNS_DIR').'/'.$patternPath;
+
+		if( file_exists($patternPath) )
+		{
+			$obj = json_decode( file_get_contents($patternPath) );
+			$data = self::getItem( $obj );
+		}
+
+		return $data;
 	}
 
 	/**
