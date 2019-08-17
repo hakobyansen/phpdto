@@ -10,10 +10,15 @@ class DtoConfig
 	const UNIT_TESTS_NAMESPACE = 'PHP_DTO_UNIT_TESTS_NAMESPACE';
 
 	/**
-	 * @param string $configFilePath
+	 * @param string|null $configFilePath
 	 */
-	public function setVariables( string $configFilePath ): void
+	public function setVariables( string $configFilePath = null ): void
 	{
+		if( !$configFilePath )
+		{
+			$configFilePath = getcwd().'/phpdto.json';
+		}
+
 		$obj = json_decode(file_get_contents($configFilePath) );
 
 		foreach ( $obj->configs as $key => $value )
