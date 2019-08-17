@@ -19,11 +19,14 @@ class DtoConfig
 			$configFilePath = getcwd().'/phpdto.json';
 		}
 
-		$obj = json_decode(file_get_contents($configFilePath) );
-
-		foreach ( $obj->configs as $key => $value )
+		if( file_exists($configFilePath) )
 		{
-			putenv($key.'='.$value);
+			$obj = json_decode(file_get_contents($configFilePath) );
+
+			foreach ( $obj->configs as $key => $value )
+			{
+				putenv($key.'='.$value);
+			}
 		}
 	}
 
