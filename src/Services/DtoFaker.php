@@ -7,34 +7,34 @@ use PhpDto\Dto;
 class DtoFaker
 {
 	/**
-	 * @param Dto $dto
+	 * @param string $dtoClassName
 	 * @param int $length
 	 * @return array
 	 * @throws \ReflectionException
 	 */
-	public static function fakeArray( Dto $dto, int $length = 10 ): array
+	public static function fakeArray( string $dtoClassName, int $length = 10 ): array
 	{
 		$data = [];
 
 		for( $i = 0; $i< $length; $i++ )
 		{
-			$data[] = self::fakeSingle( $dto );
+			$data[] = self::fakeSingle( $dtoClassName );
 		}
 
 		return $data;
 	}
 
 	/**
-	 * @param Dto $dto
+	 * @param string $dtoClassName
 	 * @return array
 	 * @throws \ReflectionException
 	 * @throws \Exception
 	 */
-	public static function fakeSingle( Dto $dto ): array
+	public static function fakeSingle( string $dtoClassName ): array
 	{
 		$rules = [];
 
-		$reflectionClass = new \ReflectionClass( get_class($dto) );
+		$reflectionClass = new \ReflectionClass( $dtoClassName );
 		$reflectionProperties = $reflectionClass->getProperties();
 
 		foreach ($reflectionProperties as $property)

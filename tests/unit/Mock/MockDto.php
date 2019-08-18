@@ -21,7 +21,7 @@ class MockDto extends Dto
 	}
 
 	/**
-	 * @return mixed
+	 * @return string|null
 	 */
 	public function getName(): ?string
 	{

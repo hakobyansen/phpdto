@@ -36,9 +36,7 @@ class DtoFakerTest extends TestCase
 	 */
 	public function testFakeSingle()
 	{
-		$dto = MockDto::mapSingle( $this->_mockData );
-
-		$data = DtoFaker::fakeSingle( $dto );
+		$data = DtoFaker::fakeSingle( MockDto::class );
 
 		$this->assertTrue( is_int($data['count']) || is_null($data['count']) );
 		$this->assertTrue( is_string($data['name']) );
@@ -50,15 +48,13 @@ class DtoFakerTest extends TestCase
 	 */
 	public function testFakeArray()
 	{
-		$dto = MockDto::mapSingle( $this->_mockData );
-
 		$length = 5;
-		$data = DtoFaker::fakeArray( $dto, $length );
+		$data = DtoFaker::fakeArray( MockDto::class, $length );
 
 		$this->assertEquals( $length, count($data) );
 
 		// testing the default value of $length param of fakeArray method
-		$data = DtoFaker::fakeArray( $dto );
+		$data = DtoFaker::fakeArray( MockDto::class );
 
 		$this->assertEquals( 10, count($data) );
 
