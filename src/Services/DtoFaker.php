@@ -2,14 +2,76 @@
 
 namespace PhpDto\Services;
 
+use PhpDto\Dto;
+
 class DtoFaker
 {
 	/**
-	 * DtoFaker constructor.
+	 * @param Dto $dto
+	 * @param int $length
+	 * @return array
+	 * @throws \ReflectionException
 	 */
-	public function __construct()
+	public static function fakeArray( Dto $dto, int $length = 10 ): array
 	{
-		(new DtoConfig())->setVariables();
+		$data = [];
+
+		for( $i = 0; $i< $length; $i++ )
+		{
+			$data[] = self::fakeSingle( $dto );
+		}
+
+		return $data;
+	}
+
+	/**
+	 * @param Dto $dto
+	 * @return array
+	 * @throws \ReflectionException
+	 * @throws \Exception
+	 */
+	public static function fakeSingle( Dto $dto ): array
+	{
+		$rules = [];
+
+		$reflectionClass = new \ReflectionClass( get_class($dto) );
+		$reflectionProperties = $reflectionClass->getProperties();
+
+		foreach ($reflectionProperties as $property)
+		{
+			$propertyName =  $property->getName();
+
+			if( $propertyName{0} === '_' )
+			{
+				$propertyName = substr( $propertyName, 1 );
+			}
+
+			$methodName = 'get'.ucfirst($propertyName);
+
+			$reflectionMethod = $reflectionClass->getMethod($methodName);
+
+			if( $reflectionMethod->hasReturnType() )
+			{
+				$returnType = $reflectionMethod->getReturnType();
+
+				$rule = $returnType->getName();
+
+				if( $returnType->allowsNull() )
+				{
+					$rule .= '|nullable';
+				}
+			}
+			else
+			{
+				$rule = 'string';
+			}
+
+			// Converting camelCase to snake_case
+			$propertyName = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $propertyName));
+			$rules[$propertyName] = $rule;
+		}
+
+		return self::fakeItem( $rules );
 	}
 
 	/**
@@ -18,20 +80,19 @@ class DtoFaker
 	 * @return array
 	 * @throws \Exception
 	 */
-	public function fakeArrayFromPattern( string $patternPath, int $length = 10 ): array
+	public static function fakeArrayFromPattern( string $patternPath, int $length = 10 ): array
 	{
 		$data = [];
-
-		$patternPath = getenv('PHP_DTO_PATTERNS_DIR').'/'.$patternPath;
 
 		if( file_exists($patternPath) )
 		{
 			$obj = json_decode( file_get_contents($patternPath) );
-		}
+			$rules = (array)$obj->rules;
 
-		for( $i = 0; $i < $length; $i++ )
-		{
-			$data[] = self::getItem( $obj );
+			for( $i = 0; $i < $length; $i++ )
+			{
+				$data[] = self::fakeItem( $rules );
+			}
 		}
 
 		return $data;
@@ -42,31 +103,30 @@ class DtoFaker
 	 * @return array
 	 * @throws \Exception
 	 */
-	public function fakeSingleFromPattern( string $patternPath ): array
+	public static function fakeSingleFromPattern( string $patternPath ): array
 	{
 		$data = [];
-
-		$patternPath = getenv('PHP_DTO_PATTERNS_DIR').'/'.$patternPath;
 
 		if( file_exists($patternPath) )
 		{
 			$obj = json_decode( file_get_contents($patternPath) );
-			$data = self::getItem( $obj );
+			$rules = (array)$obj->rules;
+			$data = self::fakeItem( $rules);
 		}
 
 		return $data;
 	}
 
 	/**
-	 * @param \stdClass $obj
+	 * @param array $rules
 	 * @return array
 	 * @throws \Exception
 	 */
-	public static function getItem( \stdClass $obj ): array
+	public static function fakeItem(array $rules ): array
 	{
 		$item = [];
 
-		foreach ( $obj->rules as $key => $value )
+		foreach ( $rules as $key => $value )
 		{
 			$rules = explode('|', $value);
 
@@ -115,7 +175,7 @@ class DtoFaker
 	 * @return string
 	 * @throws \Exception
 	 */
-	public static function randomString( $length = 20 )
+	public static function randomString( $length = 20 ): string
 	{
 		$string = '';
 
