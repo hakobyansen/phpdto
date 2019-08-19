@@ -8,7 +8,8 @@
 
 This tool gives an ability to generate PHP DTO classes based on json pattern (schema).
 ## Installation
-Install the package via composer:    
+Install the package via composer:  
+
 `composer require --dev codebot/phpdto ^0`
 
 ## Initialization
@@ -74,7 +75,7 @@ Given you have already created pattern as json file named `item.json`.
 
 Run `vendor/bin/phpdto -f=item` to have your DTO class generated. It will be stored under namespace specified in phpdto.json config file combined with namespace postfix specified in your pattern.  
 
-Given your are generating DTO class from the pattern shown in DTO Pattern section, then you will have following class generated.
+Given your are generating DTO class from the pattern shown in "DTO Pattern" section, then you will have following class generated.
 
 ```php
 <?php
@@ -130,6 +131,7 @@ class ItemDto extends \PhpDto\Dto
 ##### How to use
 
 There are 2 mapper methods:  
+
 `static function mapArray(array $items, bool $shouldSerialize = false): array`  
 
 `static function mapSingle(array $item, bool $shouldSerialize = false): mixed`
@@ -228,7 +230,7 @@ Now your item looks like this:
     "isActive": false
 }
 ```   
-All of the values are randomly generated. Even the boolean value for isActive field.  
+All of the values are randomly generated, even the boolean value for isActive field.  
 
 You can fake multidimensional array via `DtoFaker::fakeArray` method.  
 
