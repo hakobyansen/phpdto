@@ -27,11 +27,9 @@ class DtoConfigTest extends TestCase
 		$patternsDir = $this->_dtoConfig->getVariable( DtoConfig::PATTERNS_DIR );
 		$dtoNamespace = $this->_dtoConfig->getVariable( DtoConfig::DTO_NAMESPACE );
 		$classPostfix = $this->_dtoConfig->getVariable( DtoConfig::CLASS_POSTFIX );
-		$unitTestNamespace = $this->_dtoConfig->getVariable( DtoConfig::UNIT_TESTS_NAMESPACE );
 
 		$this->assertEquals( $patternsDir, 'phpdto_patterns' );
 		$this->assertEquals( $dtoNamespace, 'App\Dto' );
 		$this->assertEquals( $classPostfix, 'Dto' );
-		$this->assertEquals( $unitTestNamespace, 'Tests\Unit\Dto'  );
 	}
 }

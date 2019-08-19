@@ -7,7 +7,6 @@ class DtoConfig
 	const PATTERNS_DIR = 'PHP_DTO_PATTERNS_DIR';
 	const DTO_NAMESPACE = 'PHP_DTO_NAMESPACE';
 	const CLASS_POSTFIX = 'PHP_DTO_CLASS_POSTFIX';
-	const UNIT_TESTS_NAMESPACE = 'PHP_DTO_UNIT_TESTS_NAMESPACE';
 
 	/**
 	 * @param string|null $configFilePath

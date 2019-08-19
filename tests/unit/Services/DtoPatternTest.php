@@ -18,18 +18,20 @@ class DtoPatternTest extends TestCase
 	 */
 	private $_dtoConfig;
 
+	/**
+	 * @throws \Exception
+	 */
 	protected function setUp(): void
 	{
 		parent::setUp();
+
+		putenv('PHP_DTO_PATTERNS_DIR='.__DIR__ . '/../../files/');
 
 		$this->_handler   = new Handler();
 		$this->_dtoConfig = new DtoPattern();
 
 		$args = [
-			'-c=Item',
-			'-n=\Item',
-			'-r=id:int,count:nullable|int,name:string,description:nullable|string',
-			'-f=config'
+			'-f=dto_pattern'
 		];
 
 		$this->_handler->handleArgs( $args );
@@ -46,28 +48,11 @@ class DtoPatternTest extends TestCase
 				'count' => 'nullable|int',
 				'name' => 'string',
 				'description' => 'nullable|string'
-			],
-			'file' => 'config'
+			]
 		];
 
 		$this->assertEquals(
 			$expected, $this->_dtoConfig->getPattern()
-		);
-	}
-
-	public function testGetRulesFromConfig()
-	{
-		$rulesConfig = 'id:int,count:nullable|int,name:string,description:nullable|string';
-
-		$expected = [
-			'id' => 'int',
-			'count' => 'nullable|int',
-			'name' => 'string',
-			'description'=> 'nullable|string'
-		];
-
-		$this->assertEquals(
-			$expected, $this->_dtoConfig->getRulesFromPattern( $rulesConfig )
 		);
 	}
 }

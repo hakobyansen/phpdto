@@ -56,7 +56,4 @@ class Maker
 
 		fclose($handle);
 	}
-
-	public function makeUnitTest()
-	{}
 }

@@ -13,7 +13,14 @@ try
     (new DtoConfig())->setVariables( getcwd().'//phpdto.json' );
 
 	$handler = new Handler();
-	$handler->handleArgs( $_SERVER['argv'] );
+    $argv =  $_SERVER['argv'];
+
+	if( in_array('init', $argv) )
+    {
+        $handler->init();
+    }
+
+	$handler->handleArgs( $argv );
 
 	$dtoPattern = new DtoPattern();
 	$dtoPattern->setPattern( $handler );
@@ -21,11 +28,6 @@ try
 	$maker = new Maker( $dtoPattern->getPattern(), $handler );
 
 	$maker->makeDTO();
-
-	if( $handler->isGenerateUnitTest() )
-	{
-		$maker->makeUnitTest();
-	}
 }
 catch ( \Exception $exception )
 {

@@ -16,25 +16,13 @@ class DtoPattern
 	 */
 	public function setPattern( Handler $handler ): void
 	{
-		if( !$handler->getRules() )
-		{
-			$fileDir = getenv('PHP_DTO_PATTERNS_DIR') .'//' . $handler->getConfigFile().'.json';
+		$fileDir = getenv('PHP_DTO_PATTERNS_DIR') .'/' . $handler->getConfigFile().'.json';
 
-			$resource = fopen($fileDir, 'r');
-			$patternJson = fread($resource, filesize($fileDir));
-			fclose($resource);
+		$resource = fopen($fileDir, 'r');
+		$patternJson = fread($resource, filesize($fileDir));
+		fclose($resource);
 
-			$pattern = json_decode($patternJson, true);
-		}
-		else
-		{
-			$pattern = [
-				'class' => $handler->getClassPrefix(),
-				'namespace_postfix' => $handler->getNamespacePostfix(),
-				'rules' => $this->getRulesFromPattern( $handler->getRules() ),
-				'file' => $handler->getConfigFile()
-			];
-		}
+		$pattern = json_decode($patternJson, true);
 
 		$this->_pattern = $pattern;
 	}
@@ -45,27 +33,5 @@ class DtoPattern
 	public function getPattern(): ?array
 	{
 		return $this->_pattern;
-	}
-
-	/**
-	 * @param string $rulesConfig
-	 * @return array
-	 */
-	public function getRulesFromPattern(string $rulesConfig ): array
-	{
-		$rules = [];
-
-		$exploded = explode(',', $rulesConfig);
-
-		foreach ( $exploded as $value )
-		{
-			$value = explode(':', $value);
-
-			$rules = array_merge($rules, [
-				$value[0] => $value[1]
-			]);
-		}
-
-		return $rules;
 	}
 }

@@ -1,6 +1,6 @@
 {
-  "class": "item",
-  "namespace_postfix": "",
+  "class": "Item",
+  "namespace_postfix": "\\Item",
   "rules": {
     "id": "int",
     "count": "nullable|int",
