@@ -108,7 +108,7 @@ class ItemDto extends \PhpDto\Dto
 
 	public function getCount(): ?int
 	{
-		return $this->_count;
+        return $this->_count;
 	}
 
 	public function getName(): string
