@@ -121,7 +121,7 @@ class Sticker
 
 		foreach ($props as $prop)
 		{
-			$str .= "\t\t" . '$this->_' . $prop . ' = $' . $param . "['" . $prop . "'];\n";
+			$str .= "\t\t" . '$this->_' . $prop . ' = $' . $param . "['" . strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $prop)) . "'];\n";
 		}
 
 		$str .= "\t" . '}';
