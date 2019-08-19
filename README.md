@@ -1,4 +1,7 @@
+**Master**
 [![Build Status](https://travis-ci.com/c0d3b0t/phpdto.svg?branch=master)](https://travis-ci.com/c0d3b0t/phpdto)
+**Develop**
+ [![Build Status](https://travis-ci.com/c0d3b0t/phpdto.svg?branch=develop)](https://travis-ci.com/c0d3b0t/phpdto)
 
 ## About
 > CLI tool for PHP Data Transfer Objects generation.
