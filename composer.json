@@ -11,7 +11,7 @@
       "email": "sen.hakobyan@gmail.com"
     }
   ],
-  "bin": ["bin/phpdto-init", "bin/phpdto"],
+  "bin": ["bin/phpdto"],
   "require": {
     "php": ">=7.1",
     "ext-json": "*"
