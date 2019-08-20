@@ -239,4 +239,10 @@ In the example below we want to fake data for 10 items.
 $fakeData = DtoFaker::fakeArray( ItemDto::class, 10 );
 $items = ItemDto::mapArray( $fakeData );
 ```
-Second parameter of the `fakeArray` method is the count of generated items. 
+Second parameter of the `Dto::fakeArray` method is the count of generated items.   
+
+`Dto::fakeSingle` and `Dto::fakeArray` methods are using PHP Reflection API to get information about properties and getters.  
+
+Alternatively you can use `Dto::fakeSingeFromPattern` and `Dto::fakeArrayFromPattern` methods.
+You must pass them full path to your json pattern:  
+`Dto::fakeArrayFromPattern('/full/path/to/pattern.json')`.
