@@ -194,6 +194,8 @@ foreach( $items as $item )
 }
 ```
 
+***CONSIDER REFACTORING THE CONSTRUCTOR OF GENERATED DTO CLASS DEPENDING ON THE DATA STRUCTURE OF THE ARRAY DATA YOU WANT TO MAP.***  
+
 Sometimes you may want to have DTOs as objects that you could pass in AJAX response or whatever you need for.  
 
 Second parameter of mapper methods is a flag that decides if data should be serialized.  
