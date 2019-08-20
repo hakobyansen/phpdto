@@ -46,6 +46,16 @@ class Receiver
 		}
 
 		fwrite( $handle, $stick->getOutput() );
+
+		$this->printMessage( $classVO->getNamespace().'\\'.$classVO->getClassName() );
+	}
+
+	/**
+	 * @param string $namespace
+	 */
+	public function printMessage( string $namespace ): void
+	{
+		echo "$namespace generated.\n";
 	}
 }
 
