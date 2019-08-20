@@ -15,7 +15,11 @@ Install the package via composer:
 ## Initialization
 `vendor/bin/phpdto init`
 
-This command will initialize the phpdto and create **phpdto.json** configuration file in your current working directory.
+The current working directory is the directory from where you are invoking `phpdto` command.  
+
+This command will initialize the phpdto and create **phpdto.json** configuration file in your current working directory.  
+
+Create the `phpdto_patterns` folder in your current working directory.
 
 ## Configuration
 **phpdto.json** configuration file contains following variables: 
@@ -59,7 +63,7 @@ So, if the class name is "item" and the class postfix config value is "Dto", the
 
 The postfix of the generated DTO class namespace that will be combined with *PHP_DTO_NAMESPACE* specified in phpdto.json config file.  
 
-So, if the namespace postfix is "\User" and the default DTO namespace is "App\Dto", then the generated class namespace will be "App\Dto\User".  
+So, if the namespace postfix is **"\User"** and the default DTO namespace is **"App\Dto"**, then the generated class namespace will be `App\Dto\User`.  
 
 You can leave namespace postfix empty.  
 
@@ -71,9 +75,9 @@ This object contains information about DTO class properties and methods. Keys wi
 
 ##### Generating DTO
 
-Given you have already created pattern as json file named `item.json`.  
+Given you have already created pattern as json file named `item.json` in the `phpdto_patterns` folder.
 
-Run `vendor/bin/phpdto -f=item` to have your DTO class generated. It will be stored under namespace specified in phpdto.json config file combined with namespace postfix specified in your pattern.  
+Run `vendor/bin/phpdto -f=item` to have your DTO class generated. It will be stored under namespace specified in the `phpdto.json` config file combined with namespace postfix specified in your pattern.  
 
 Given your are generating DTO class from the pattern shown in "DTO Pattern" section, then you will have following class generated.
 
