@@ -2,70 +2,46 @@
 
 namespace PhpDto\Services;
 
-use PhpDto\Cli\Handler;
-
 class DtoConfig
 {
-	/**
-	 * @var null|array $_configs
-	 */
-	private $_configs;
+	const PATTERNS_DIR = 'PHP_DTO_PATTERNS_DIR';
+	const DTO_NAMESPACE = 'PHP_DTO_NAMESPACE';
+	const CLASS_POSTFIX = 'PHP_DTO_CLASS_POSTFIX';
 
 	/**
-	 * @param Handler $handler
+	 * @param string|null $configFilePath
 	 */
-	public function setConfigs( Handler $handler ): void
+	public function setVariables( string $configFilePath = null ): void
 	{
-		if( !$handler->getRules() )
+		if( !$configFilePath )
 		{
-			$fileDir = getenv('PHP_DTO_CONFIG_FILES_DIR').__DIR__ .'//' . $handler->getConfigFile().'.json';
-
-			$resource = fopen($fileDir, 'r');
-			$configsJson = fread($resource, filesize($fileDir));
-			fclose($resource);
-
-			$configs = json_decode($configsJson, true);
-		}
-		else
-		{
-			$configs = [
-				'class' => $handler->getClassPrefix(),
-				'namespace_postfix' => $handler->getNamespacePostfix(),
-				'rules' => $this->getRulesFromConfig( $handler->getRules() ),
-				'file' => $handler->getConfigFile()
-			];
+			$configFilePath = getcwd().'/phpdto.json';
 		}
 
-		$this->_configs = $configs;
+		if( file_exists($configFilePath) )
+		{
+			$obj = json_decode(file_get_contents($configFilePath) );
+
+			foreach ( $obj->configs as $key => $value )
+			{
+				putenv($key.'='.$value);
+			}
+		}
 	}
 
 	/**
-	 * @return array|null
+	 * @param string $variable
+	 * @return string|null
 	 */
-	public function getConfigs(): ?array
+	public function getVariable( string $variable ): ?string
 	{
-		return $this->_configs;
-	}
+		$value = null;
 
-	/**
-	 * @param string $rulesConfig
-	 * @return array
-	 */
-	public function getRulesFromConfig( string $rulesConfig ): array
-	{
-		$rules = [];
-
-		$exploded = explode(',', $rulesConfig);
-
-		foreach ( $exploded as $value )
+		if( getenv($variable) )
 		{
-			$value = explode(':', $value);
-
-			$rules = array_merge($rules, [
-				$value[0] => $value[1]
-			]);
+			$value = getenv($variable);
 		}
 
-		return $rules;
+		return $value;
 	}
 }

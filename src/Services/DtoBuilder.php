@@ -2,8 +2,8 @@
 
 namespace PhpDto\Services;
 
-use PhpDto\DTO;
-use PhpDto\DTOSerialize;
+use PhpDto\Dto;
+use PhpDto\DtoSerialize;
 
 class DtoBuilder
 {
@@ -39,16 +39,13 @@ class DtoBuilder
 	 */
 	public function getModules(): array
 	{
-		return [
-			DTO::class,
-			DTOSerialize::class
-		];
+		return [];
 	}
 
 	public function getTraits(): array
 	{
 		return [
-			'DTOSerialize'
+			'\\'.DtoSerialize::class
 		];
 	}
 

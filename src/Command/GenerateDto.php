@@ -5,7 +5,7 @@ namespace PhpDto\Command;
 use PhpDto\Services\ClassVO;
 use PhpDto\Services\DtoBuilder;
 
-class GenerateDTO extends Command
+class GenerateDto extends Command
 {
 	/**
 	 * @param resource $handle

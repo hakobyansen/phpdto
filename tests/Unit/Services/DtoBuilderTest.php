@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Services;
 
-use PhpDto\DTO;
-use PhpDto\DTOSerialize;
+use PhpDto\Dto;
+use PhpDto\DtoSerialize;
 use PhpDto\Services\DtoBuilder;
 use PHPUnit\Framework\TestCase;
 
@@ -73,7 +73,7 @@ class DtoBuilderTest extends TestCase
 	public function testGetModules()
 	{
 		$this->assertEquals(
-			[ DTO::class, DTOSerialize::class ],
+			[],
 			$this->_builder->getModules()
 		);
 	}
@@ -81,7 +81,7 @@ class DtoBuilderTest extends TestCase
 	public function testGetTraits()
 	{
 		$this->assertEquals(
-			[ 'DTOSerialize' ],
+			[ '\PhpDto\DtoSerialize' ],
 			$this->_builder->getTraits()
 		);
 	}

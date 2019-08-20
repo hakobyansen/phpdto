@@ -41,7 +41,7 @@ class Sticker
 		$str = '';
 
 		foreach ($modules as $module) {
-			$str .= $module . ';' . PHP_EOL;
+			$str .= 'use ' . $module . ';' . PHP_EOL;
 		}
 
 		if (strlen($str)) {
@@ -60,7 +60,8 @@ class Sticker
 	{
 		$str = 'class ' . $className;
 
-		if ($parentClassName) {
+		if ($parentClassName)
+		{
 			$str .= ' extends ' . $parentClassName;
 		}
 
@@ -120,7 +121,7 @@ class Sticker
 
 		foreach ($props as $prop)
 		{
-			$str .= "\t\t" . '$this->_' . $prop . ' = $' . $param . "['" . $prop . "'];\n";
+			$str .= "\t\t" . '$this->_' . $prop . ' = $' . $param . "['" . strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $prop)) . "'];\n";
 		}
 
 		$str .= "\t" . '}';
@@ -138,12 +139,25 @@ class Sticker
 	{
 		$str = '';
 
-		foreach ($methods as $method) {
+		$counter = 0;
+		$count = count($methods);
+
+		foreach ($methods as $method)
+		{
 			$str .= "\t" . $method['visibility'] . ' ' . $method['declaration'] . PHP_EOL
-				. "\t" . '{' . PHP_EOL . "\t\t" . $method['body'] . PHP_EOL . "\t" . '}' . PHP_EOL . PHP_EOL;
+				. "\t" . '{' . PHP_EOL . "\t\t" . $method['body'] . PHP_EOL . "\t" . '}'.PHP_EOL;
+
+			// Put double EOL for all methods except last one
+			if( $counter != $count-1 )
+			{
+				$str .= PHP_EOL;
+			}
+
+			$counter++;
 		}
 
-		if (strlen($str)) {
+		if ( strlen($str) )
+		{
 			$str .= '}';
 
 			$this->_output .= $str;

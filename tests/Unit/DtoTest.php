@@ -2,8 +2,7 @@
 
 namespace Tests\Unit;
 
-use PhpDto\DTO;
-use PhpDto\DTOSerialize;
+use Tests\Unit\Mock\MockDto;
 use PHPUnit\Framework\TestCase;
 
 class DtoTest extends TestCase
@@ -23,7 +22,7 @@ class DtoTest extends TestCase
 
 	public function testMapSingle()
 	{
-		$dto = MockDTO::mapSingle( $this->_mockData );
+		$dto = MockDto::mapSingle( $this->_mockData );
 
 		$this->assertEquals( $this->_mockData['name'], $dto->getName() );
 		$this->assertEquals( $this->_mockData['count'], $dto->getCount() );
@@ -31,14 +30,14 @@ class DtoTest extends TestCase
 
 		$this->_mockData['name'] = null;
 
-		$dto = MockDTO::mapSingle( $this->_mockData );
+		$dto = MockDto::mapSingle( $this->_mockData );
 
 		$this->assertNull( $dto->getName() );
 	}
 
 	public function testMapSingleSerialized()
 	{
-		$dtoSerialized = MockDTO::mapSingle( $this->_mockData, true );
+		$dtoSerialized = MockDto::mapSingle( $this->_mockData, true );
 
 		$this->assertEquals( $this->_mockData['name'], $dtoSerialized->name );
 		$this->assertEquals( $this->_mockData['count'], $dtoSerialized->count );
@@ -51,7 +50,7 @@ class DtoTest extends TestCase
 			$this->_mockData
 		];
 
-		$dtos = MockDTO::mapArray( $data );
+		$dtos = MockDto::mapArray( $data );
 
 		$dto = $dtos[0];
 
@@ -66,52 +65,12 @@ class DtoTest extends TestCase
 			$this->_mockData
 		];
 
-		$dtos = MockDTO::mapArray( $data, true );
+		$dtos = MockDto::mapArray( $data, true );
 
 		$dtoSerialized = $dtos[0];
 
 		$this->assertEquals( $this->_mockData['name'], $dtoSerialized->name );
 		$this->assertEquals( $this->_mockData['count'], $dtoSerialized->count );
 		$this->assertEquals( $this->_mockData['is_true'], $dtoSerialized->isTrue );
-	}
-}
-
-class MockDTO extends DTO
-{
-	use DTOSerialize;
-
-	private $_name;
-	private $_count;
-	private $_isTrue;
-
-	public function __construct( array $data )
-	{
-		$this->_name   = $data['name'];
-		$this->_count  = $data['count'];
-		$this->_isTrue = $data['is_true'];
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getName(): ?string
-	{
-		return $this->_name;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getCount(): int
-	{
-		return $this->_count;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function getIsTrue(): bool
-	{
-		return $this->_isTrue;
 	}
 }

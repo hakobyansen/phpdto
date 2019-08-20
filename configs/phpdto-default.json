@@ -1,0 +1,7 @@
+{
+  "configs": {
+    "PHP_DTO_PATTERNS_DIR": "phpdto_patterns",
+    "PHP_DTO_NAMESPACE": "App\\Dto",
+    "PHP_DTO_CLASS_POSTFIX": "Dto"
+  }
+}

@@ -5,24 +5,29 @@ require 'vendor\autoload.php';
 
 use PhpDto\Cli\Handler;
 use PhpDto\Services\Maker;
+use PhpDto\Services\DtoPattern;
 use PhpDto\Services\DtoConfig;
 
 try
 {
+    (new DtoConfig())->setVariables( getcwd().'//phpdto.json' );
+
 	$handler = new Handler();
-	$handler->handleArgs( $_SERVER['argv'] );
+    $argv =  $_SERVER['argv'];
 
-	$dtoConfig = new DtoConfig();
-	$dtoConfig->setConfigs( $handler );
+	if( in_array('init', $argv) )
+    {
+        $handler->init();
+    }
 
-	$maker = new Maker( $dtoConfig->getConfigs(), $handler );
+	$handler->handleArgs( $argv );
+
+	$dtoPattern = new DtoPattern();
+	$dtoPattern->setPattern( $handler );
+
+	$maker = new Maker( $dtoPattern->getPattern(), $handler );
 
 	$maker->makeDTO();
-
-	if( $handler->isGenerateUnitTest() )
-	{
-		$maker->makeUnitTest();
-	}
 }
 catch ( \Exception $exception )
 {
