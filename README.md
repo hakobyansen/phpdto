@@ -4,6 +4,7 @@
 **Develop**
  [![Build Status](https://travis-ci.com/c0d3b0t/phpdto.svg?branch=develop)](https://travis-ci.com/c0d3b0t/phpdto)
 [![License](https://poser.pugx.org/codebot/phpdto/license)](https://packagist.org/packages/codebot/phpdto)
+[![Total Downloads](https://poser.pugx.org/codebot/phpdto/downloads)](https://packagist.org/packages/codebot/phpdto)
 ## About
 > CLI tool for PHP Data Transfer Objects generation.
 
