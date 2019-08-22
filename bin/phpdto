@@ -18,6 +18,7 @@ try
 	if( in_array('init', $argv) )
     {
         $handler->init();
+        die();
     }
 
 	$handler->handleArgs( $argv );
