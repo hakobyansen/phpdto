@@ -1,7 +1,7 @@
 [![Latest Stable Version](https://poser.pugx.org/codebot/phpdto/v/stable)](https://packagist.org/packages/codebot/phpdto)
 [![Build Status](https://travis-ci.com/c0d3b0t/phpdto.svg?branch=master)](https://travis-ci.com/c0d3b0t/phpdto)
-[![License](https://poser.pugx.org/codebot/phpdto/license)](https://packagist.org/packages/codebot/phpdto)
 [![Total Downloads](https://poser.pugx.org/codebot/phpdto/downloads)](https://packagist.org/packages/codebot/phpdto)
+[![License](https://poser.pugx.org/codebot/phpdto/license)](https://packagist.org/packages/codebot/phpdto)
 ## About
 > CLI tool for PHP Data Transfer Objects generation.
 
@@ -9,7 +9,7 @@ This tool gives an ability to generate PHP DTO classes based on json pattern (sc
 ## Installation
 Install the package via composer:  
 
-`composer require --dev codebot/phpdto ^0`
+`composer require --dev codebot/phpdto 0.*`
 
 ## Initialization
 `vendor/bin/phpdto init`
