@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.com/c0d3b0t/phpdto.svg?branch=master)](https://travis-ci.com/c0d3b0t/phpdto)
 **Develop**
  [![Build Status](https://travis-ci.com/c0d3b0t/phpdto.svg?branch=develop)](https://travis-ci.com/c0d3b0t/phpdto)
+[![Latest Unstable Version](https://poser.pugx.org/codebot/phpdto/v/unstable)](https://packagist.org/packages/codebot/phpdto)
 [![License](https://poser.pugx.org/codebot/phpdto/license)](https://packagist.org/packages/codebot/phpdto)
 [![Total Downloads](https://poser.pugx.org/codebot/phpdto/downloads)](https://packagist.org/packages/codebot/phpdto)
 ## About
