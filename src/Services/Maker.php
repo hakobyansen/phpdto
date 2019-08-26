@@ -39,7 +39,7 @@ class Maker
 
 		$className = $dtoBuilder->getClassName( $this->_configs );
 
-		$classDir = getenv('PHP_DTO_NAMESPACE') .'/' .$className.'.php';
+		$classDir = str_replace( '\\', '/', getenv('PHP_DTO_NAMESPACE') .'/' .$className.'.php' );
 
 		if( file_exists( $classDir ) )
 		{
