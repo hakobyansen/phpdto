@@ -2,7 +2,7 @@
 
 namespace PhpDto\Command;
 
-use PhpDto\Services\ClassVO;
+use PhpDto\Services\ClassValueObject;
 
 abstract class Command implements ICommand
 {
@@ -28,7 +28,7 @@ abstract class Command implements ICommand
 
 	/**
 	 * @param array $dtoConfigs
-	 * @return ClassVO
+	 * @return ClassValueObject
 	 */
-	abstract protected function mapClassVO( array $dtoConfigs ): ClassVO;
+	abstract protected function mapClassVO( array $dtoConfigs ): ClassValueObject;
 }

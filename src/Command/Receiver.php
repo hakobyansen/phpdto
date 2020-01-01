@@ -3,16 +3,16 @@
 namespace PhpDto\Command;
 
 use PhpDto\Dto;
-use PhpDto\Services\ClassVO;
+use PhpDto\Services\ClassValueObject;
 use PhpDto\Services\Sticker;
 
 class Receiver
 {
 	/**
 	 * @param $handle
-	 * @param ClassVO $classVO
+	 * @param ClassValueObject $classVO
 	 */
-	public function write($handle, ClassVO $classVO): void
+	public function write($handle, ClassValueObject $classVO): void
 	{
 		$stick = new Sticker();
 
