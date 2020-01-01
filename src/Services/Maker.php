@@ -48,12 +48,16 @@ class Maker
 			throw new \Exception( $message );
 		}
 
-		$handle = fopen( $classDir, 'a+' );
+		try {
+			$handle = fopen( $classDir, 'a+' );
 
-		$invoker = new Invoker();
-		$invoker->setCommand( new GenerateDto( new Receiver()) )
-			->run( $handle, $this->_configs );
+			$invoker = new Invoker();
+			$invoker->setCommand( new GenerateDto( new Receiver()) )
+				->run( $handle, $this->_configs );
 
-		fclose($handle);
+			fclose($handle);
+		} catch (\Exception $exception) {
+			echo "{$exception->getMessage()}\n";
+		}
 	}
 }
