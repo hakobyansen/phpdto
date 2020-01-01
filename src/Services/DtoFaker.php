@@ -41,7 +41,7 @@ class DtoFaker
 		{
 			$propertyName =  $property->getName();
 
-			if( $propertyName{0} === '_' )
+			if( $propertyName[0] === '_' )
 			{
 				$propertyName = substr( $propertyName, 1 );
 			}
