@@ -89,10 +89,10 @@ class DtoBuilderTest extends TestCase
 	public function testGetProps()
 	{
 		$expected = [
-			'private $_id;',
-			'private $_count;',
-			'private $_name;',
-			'private $_description;',
+			'private int $_id;',
+			'private ?int $_count;',
+			'private string $_name;',
+			'private ?string $_description;',
 		];
 
 		$this->assertEquals(
