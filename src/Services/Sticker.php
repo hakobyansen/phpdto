@@ -175,14 +175,4 @@ class Sticker
 
 		return $this;
 	}
-
-	/**
-	 * @return Sticker
-	 */
-	public function doubleEol(): Sticker
-	{
-		$this->_output .= PHP_EOL . PHP_EOL;
-
-		return $this;
-	}
 }
