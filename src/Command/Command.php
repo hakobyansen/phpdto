@@ -9,7 +9,7 @@ abstract class Command implements ICommand
 	/**
 	 * @var Receiver $_writer
 	 */
-	protected $_writer;
+	protected Receiver $_writer;
 
 	/**
 	 * Command constructor.

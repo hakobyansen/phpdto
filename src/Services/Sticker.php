@@ -7,7 +7,7 @@ class Sticker
 	/**
 	 * @var string $_output
 	 */
-	private $_output;
+	private string $_output;
 
 	/**
 	 * @return string

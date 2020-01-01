@@ -12,12 +12,12 @@ class Maker
 	/**
 	 * @var array $_configs
 	 */
-	private $_configs;
+	private array $_configs;
 
 	/**
 	 * @var Handler $_handler
 	 */
-	private $_handler;
+	private Handler $_handler;
 
 	/**
 	 * Maker constructor.

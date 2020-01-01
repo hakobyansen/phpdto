@@ -7,42 +7,42 @@ class ClassVO
 	/**
 	 * @var string $_namespace
 	 */
-	private $_namespace;
+	private string $_namespace;
 
 	/**
 	 * @var null|array $_modules
 	 */
-	private $_modules;
+	private ?array $_modules;
 
 	/**
 	 * @var string $_className
 	 */
-	private $_className;
+	private string $_className;
 
 	/**
 	 * @var null|array $_traits
 	 */
-	private $_traits;
+	private ?array $_traits;
 
 	/**
 	 * @var null|array $_props
 	 */
-	private $_props;
+	private ?array $_props;
 
 	/**
 	 * @var null|array $_methods
 	 */
-	private $_methods;
+	private ?array $_methods;
 
 	/**
 	 * @var string $_constructorParam
 	 */
-	private $_constructorParam;
+	private string $_constructorParam;
 
 	/**
 	 * @var null|array $_constructorProps
 	 */
-	private $_constructorProps;
+	private ?array $_constructorProps;
 
 	/**
 	 * @return string
