@@ -2,47 +2,47 @@
 
 namespace PhpDto\Services;
 
-class ClassVO
+class ClassValueObject
 {
 	/**
 	 * @var string $_namespace
 	 */
-	private $_namespace;
+	private string $_namespace;
 
 	/**
 	 * @var null|array $_modules
 	 */
-	private $_modules;
+	private ?array $_modules;
 
 	/**
 	 * @var string $_className
 	 */
-	private $_className;
+	private string $_className;
 
 	/**
 	 * @var null|array $_traits
 	 */
-	private $_traits;
+	private ?array $_traits;
 
 	/**
 	 * @var null|array $_props
 	 */
-	private $_props;
+	private ?array $_props;
 
 	/**
 	 * @var null|array $_methods
 	 */
-	private $_methods;
+	private ?array $_methods;
 
 	/**
 	 * @var string $_constructorParam
 	 */
-	private $_constructorParam;
+	private string $_constructorParam;
 
 	/**
 	 * @var null|array $_constructorProps
 	 */
-	private $_constructorProps;
+	private ?array $_constructorProps;
 
 	/**
 	 * @return string
@@ -54,9 +54,9 @@ class ClassVO
 
 	/**
 	 * @param string $namespace
-	 * @return ClassVO
+	 * @return ClassValueObject
 	 */
-	public function setNamespace( string $namespace ): ClassVO
+	public function setNamespace( string $namespace ): ClassValueObject
 	{
 		$this->_namespace = $namespace;
 
@@ -73,9 +73,9 @@ class ClassVO
 
 	/**
 	 * @param array|null $modules
-	 * @return ClassVO
+	 * @return ClassValueObject
 	 */
-	public function setModules( ?array $modules ): ClassVO
+	public function setModules( ?array $modules ): ClassValueObject
 	{
 		$this->_modules = $modules;
 
@@ -92,9 +92,9 @@ class ClassVO
 
 	/**
 	 * @param string $className
-	 * @return ClassVO
+	 * @return ClassValueObject
 	 */
-	public function setClassName( string $className ): ClassVO
+	public function setClassName( string $className ): ClassValueObject
 	{
 		$this->_className = $className;
 
@@ -111,9 +111,9 @@ class ClassVO
 
 	/**
 	 * @param array|null $traits
-	 * @return ClassVO
+	 * @return ClassValueObject
 	 */
-	public function setTraits( ?array $traits ): ClassVO
+	public function setTraits( ?array $traits ): ClassValueObject
 	{
 		$this->_traits = $traits;
 		return $this;
@@ -129,9 +129,9 @@ class ClassVO
 
 	/**
 	 * @param array|null $props
-	 * @return ClassVO
+	 * @return ClassValueObject
 	 */
-	public function setProps( ?array $props ): ClassVO
+	public function setProps( ?array $props ): ClassValueObject
 	{
 		$this->_props = $props;
 		return $this;
@@ -147,9 +147,9 @@ class ClassVO
 
 	/**
 	 * @param array|null $methods
-	 * @return ClassVO
+	 * @return ClassValueObject
 	 */
-	public function setMethods( ?array $methods ): ClassVO
+	public function setMethods( ?array $methods ): ClassValueObject
 	{
 		$this->_methods = $methods;
 		return $this;
@@ -165,9 +165,9 @@ class ClassVO
 
 	/**
 	 * @param string $constructorParam
-	 * @return ClassVO
+	 * @return ClassValueObject
 	 */
-	public function setConstructorParam( string $constructorParam ): ClassVO
+	public function setConstructorParam( string $constructorParam ): ClassValueObject
 	{
 		$this->_constructorParam = $constructorParam;
 		return $this;
@@ -183,9 +183,9 @@ class ClassVO
 
 	/**
 	 * @param array|null $constructorProps
-	 * @return ClassVO
+	 * @return ClassValueObject
 	 */
-	public function setConstructorProps( ?array $constructorProps ): ClassVO
+	public function setConstructorProps( ?array $constructorProps ): ClassValueObject
 	{
 		$this->_constructorProps = $constructorProps;
 		return $this;

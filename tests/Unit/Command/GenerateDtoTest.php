@@ -63,10 +63,10 @@ class GenerateDtoTest extends TestCase
 
 		$this->assertEquals(
 			[
-				'private $_id;',
-				'private $_count;',
-				'private $_name;',
-				'private $_description;',
+				'private int $_id;',
+				'private ?int $_count;',
+				'private string $_name;',
+				'private ?string $_description;',
 			],
 			$classVO->getProps()
 		);

@@ -2,7 +2,7 @@
 
 namespace PhpDto\Command;
 
-use PhpDto\Services\ClassVO;
+use PhpDto\Services\ClassValueObject;
 use PhpDto\Services\DtoBuilder;
 
 class GenerateDto extends Command
@@ -20,11 +20,11 @@ class GenerateDto extends Command
 
 	/**
 	 * @param array $dtoConfigs
-	 * @return ClassVO
+	 * @return ClassValueObject
 	 */
-	public function mapClassVO( array $dtoConfigs ): ClassVO
+	public function mapClassVO( array $dtoConfigs ): ClassValueObject
 	{
-		$ValueObject = new ClassVO();
+		$ValueObject = new ClassValueObject();
 		$DtoBuilder = new DtoBuilder();
 
 		$ValueObject->setNamespace( $DtoBuilder->getNamespace( $dtoConfigs ) )

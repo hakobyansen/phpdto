@@ -60,7 +60,18 @@ class DtoBuilder
 
 		foreach ($configs['rules'] as $key => $value)
 		{
-			$props[] = $visibility . ' $_' . $key . ';';
+			$type = '';
+
+			if( strpos($value, 'nullable') !== false )
+			{
+				$type = '?';
+				$value = str_replace('nullable|', '', $value);
+				$value = str_replace('|nullable', '', $value);
+			}
+
+			$type .= $value;
+
+			$props[] = "{$visibility} {$type}" . ' $_' . "{$key};";
 		}
 
 		return $props;

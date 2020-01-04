@@ -2,13 +2,13 @@
 
 namespace Tests\Unit\Services;
 
-use PhpDto\Services\ClassVO;
+use PhpDto\Services\ClassValueObject;
 use PHPUnit\Framework\TestCase;
 
 class ClassVOTest extends TestCase
 {
 	/**
-	 * @var ClassVO $_valueObject
+	 * @var ClassValueObject $_valueObject
 	 */
 	private $_valueObject;
 
@@ -16,7 +16,7 @@ class ClassVOTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->_valueObject = new ClassVO();
+		$this->_valueObject = new ClassValueObject();
 	}
 
 	public function testSetNamespace()

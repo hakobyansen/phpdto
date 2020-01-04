@@ -7,7 +7,7 @@ class Invoker
 	/**
 	 * @var ICommand $_command
 	 */
-	private $_command;
+	private ICommand $_command;
 
 	/**
 	 * @param ICommand $command

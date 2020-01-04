@@ -7,7 +7,7 @@ class Handler
 	/**
 	 * @var string $_configFile
 	 */
-	private $_configFile;
+	private string $_configFile;
 
 	/**
 	 * @param array $argv

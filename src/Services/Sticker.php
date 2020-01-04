@@ -7,7 +7,7 @@ class Sticker
 	/**
 	 * @var string $_output
 	 */
-	private $_output;
+	private string $_output = '';
 
 	/**
 	 * @return string
@@ -172,16 +172,6 @@ class Sticker
 	public function eol(): Sticker
 	{
 		$this->_output .= PHP_EOL;
-
-		return $this;
-	}
-
-	/**
-	 * @return Sticker
-	 */
-	public function doubleEol(): Sticker
-	{
-		$this->_output .= PHP_EOL . PHP_EOL;
 
 		return $this;
 	}
