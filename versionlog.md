@@ -1,3 +1,5 @@
+## 0.2.1
+
 ## 0.2.0 2020-01-05
 * Added types to generated class properties.
 
