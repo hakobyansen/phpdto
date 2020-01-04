@@ -11,6 +11,8 @@ Install the package via composer:
 
 `composer require --dev codebot/phpdto 0.2.*`
 
+**Please consider that the minimum PHP version required by this package  is 7.4.**
+
 ## Initialization
 `vendor/bin/phpdto init`
 
