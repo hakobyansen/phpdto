@@ -9,7 +9,7 @@ class DtoPattern
 	/**
 	 * @var null|array $_pattern
 	 */
-	private $_pattern;
+	private ?array $_pattern;
 
 	/**
 	 * @param Handler $handler

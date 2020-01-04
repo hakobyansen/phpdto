@@ -5,11 +5,11 @@
 ## About
 > CLI tool for PHP Data Transfer Objects generation.
 
-This tool gives an ability to generate PHP DTO classes based on json pattern (schema).
+This utility gives an ability to generate PHP 7.4 DTO classes based on json pattern (schema).
 ## Installation
 Install the package via composer:  
 
-`composer require --dev codebot/phpdto 0.*`
+`composer require --dev codebot/phpdto 0.2.*`
 
 ## Initialization
 `vendor/bin/phpdto init`
@@ -70,7 +70,7 @@ You can leave namespace postfix empty.
 
 This object contains information about DTO class properties and methods. Keys will be casted to class properties. Values contain information about getters return types.  
 
-`"description" : "nullable|string"` - due to this pair `$_description` property will be added to DTO class with appropriate `getDescription(): ?string` method, that expects return type "string" and allows nullable.  
+`"description" : "nullable|string"` - due to this pair `$_description` property will be added to DTO class with appropriate `private ?string $_description` property and `getDescription(): ?string` method, that expects return type "string" and allows nullable.  
 
 ##### Generating DTO
 
@@ -89,11 +89,11 @@ class ItemDto extends \PhpDto\Dto
 {
 	use \PhpDto\DtoSerialize;
 
-	private $_id;
-	private $_count;
-	private $_name;
-	private $_description;
-	private $_isActive;
+	private int $_id;
+	private ?int $_count;
+	private string $_name;
+	private ?string $_description;
+	private bool $_isActive;
 
 	public function __construct( array $item )
 	{

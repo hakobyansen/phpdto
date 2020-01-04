@@ -12,12 +12,12 @@ class Maker
 	/**
 	 * @var array $_configs
 	 */
-	private $_configs;
+	private array $_configs;
 
 	/**
 	 * @var Handler $_handler
 	 */
-	private $_handler;
+	private Handler $_handler;
 
 	/**
 	 * Maker constructor.
@@ -39,21 +39,32 @@ class Maker
 
 		$className = $dtoBuilder->getClassName( $this->_configs );
 
-		$classDir = str_replace( '\\', '/', getenv('PHP_DTO_NAMESPACE') .'/' .$className.'.php' );
+		$classDir = str_replace( '\\', '/', getenv('PHP_DTO_NAMESPACE') );
 
-		if( file_exists( $classDir ) )
+		if( !is_dir($classDir) )
+		{
+			mkdir( $classDir, 0755, true );
+		}
+
+		$classPath = $classDir . '/' .$className.'.php';
+
+		if( file_exists( $classPath ) )
 		{
 			$message = "$className already exists.\n";
 
 			throw new \Exception( $message );
 		}
 
-		$handle = fopen( $classDir, 'a+' );
+		try {
+			$handle = fopen( $classPath, 'a+' );
 
-		$invoker = new Invoker();
-		$invoker->setCommand( new GenerateDto( new Receiver()) )
-			->run( $handle, $this->_configs );
+			$invoker = new Invoker();
+			$invoker->setCommand( new GenerateDto( new Receiver()) )
+				->run( $handle, $this->_configs );
 
-		fclose($handle);
+			fclose($handle);
+		} catch (\Exception $exception) {
+			echo "{$exception->getMessage()}\n";
+		}
 	}
 }

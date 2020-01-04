@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  phpfpm:
+    image: adhocore/phpfpm:7.4
+    container_name: phpdto
+    ports:
+      - 9000:9000
+    working_dir: /home
+    volumes:
+      - .:/home

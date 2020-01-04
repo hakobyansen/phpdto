@@ -1,6 +1,5 @@
 ## 0.2.0
-
-## 0.1.4
+* Added types to generated class properties.
 
 ## 0.1.3 2019-08-26
 * Replacing backslash to slash in Make::makeDto method.

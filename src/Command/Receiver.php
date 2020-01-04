@@ -3,20 +3,20 @@
 namespace PhpDto\Command;
 
 use PhpDto\Dto;
-use PhpDto\Services\ClassVO;
+use PhpDto\Services\ClassValueObject;
 use PhpDto\Services\Sticker;
 
 class Receiver
 {
 	/**
 	 * @param $handle
-	 * @param ClassVO $classVO
+	 * @param ClassValueObject $classVO
 	 */
-	public function write($handle, ClassVO $classVO): void
+	public function write($handle, ClassValueObject $classVO): void
 	{
 		$stick = new Sticker();
 
-		$stick->head( $classVO->getNamespace() )->doubleEol();
+		$stick->head( $classVO->getNamespace() )->eol()->eol();
 
 		if( !empty( $classVO->getModules() ) )
 		{
@@ -37,7 +37,7 @@ class Receiver
 
 		if( !empty( $classVO->getConstructorProps() ) )
 		{
-			$stick->constructor( $classVO->getConstructorParam(), $classVO->getConstructorProps() )->doubleEol();
+			$stick->constructor( $classVO->getConstructorParam(), $classVO->getConstructorProps() )->eol()->eol();
 		}
 
 		if( !empty( $classVO->getMethods() ) )
