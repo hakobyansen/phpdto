@@ -18,9 +18,7 @@ Install the package via composer:
 
 The current working directory is the directory from where you are invoking `phpdto` command.  
 
-This command will initialize the phpdto and create **phpdto.json** configuration file in your current working directory.  
-
-Create the `phpdto_patterns` folder in your current working directory.
+This command will initialize the phpdto and create **phpdto.json** configuration file and **phpdto_patterns** directory in your current working directory.    
 
 ## Configuration
 **phpdto.json** configuration file contains following variables: 
