@@ -1,3 +1,5 @@
+## 0.2.2
+
 ## 0.2.1 2020-02-01
 * Automatically creating phpdto_patterns directory on initialization.
 
