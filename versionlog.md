@@ -1,4 +1,5 @@
-## 0.2.1
+## 0.2.1 2020-02-01
+* Automatically creating phpdto_patterns directory on initialization.
 
 ## 0.2.0 2020-01-05
 * Added types to generated class properties.
