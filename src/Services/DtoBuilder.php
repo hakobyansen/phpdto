@@ -100,6 +100,8 @@ class DtoBuilder
 
         foreach ( $configs['rules'] as $key => $value )
         {
+        		$key = $this->convertPropToSnakeCase($key);
+
             $keys[] = $key;
         }
 
