@@ -1,4 +1,5 @@
-## 0.2.3
+## 0.2.3 2021-03-26
+* Fixed bugs related to generated constructor props.
 
 ## 0.2.2 2021-03-26
 * Fixed bugs related to generated props and methods naming.
