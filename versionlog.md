@@ -1,3 +1,5 @@
+## 0.2.4
+
 ## 0.2.3 2021-03-26
 * Fixed bugs related to generated constructor props.
 
