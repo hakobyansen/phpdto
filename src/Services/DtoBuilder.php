@@ -2,7 +2,6 @@
 
 namespace PhpDto\Services;
 
-use PhpDto\Dto;
 use PhpDto\DtoSerialize;
 
 class DtoBuilder
@@ -42,6 +41,9 @@ class DtoBuilder
 		return [];
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getTraits(): array
 	{
 		return [
@@ -70,6 +72,8 @@ class DtoBuilder
 			}
 
 			$type .= $value;
+
+			$key = $this->convertPropToSnakeCase($key);
 
 			$props[] = "{$visibility} {$type}" . ' $_' . "{$key};";
 		}
@@ -124,15 +128,47 @@ class DtoBuilder
             $returnType .= in_array( 'bool', $rules ) ? 'bool' : '';
             $returnType .= in_array( 'array', $rules ) ? 'array' : '';
 
+			  if (strpos($key, '_') !== false)
+			  {
+				  $key = join('', array_map('ucfirst', explode('_', $key)));
+			  }
+
             $declaration = 'function get'.ucfirst($key).'(): '.$returnType;
 
             $method['visibility']  = $visibility;
             $method['declaration'] = $declaration;
-            $method['body']        = 'return $this->_'.$key.';';
+            $method['body']        = 'return $this->_'.lcfirst($key).';';
 
             $methods[] = $method;
         }
 
         return $methods;
     }
+
+	/**
+	 * @param string $prop
+	 * @return string
+	 */
+	public function convertPropToSnakeCase(string $prop): string
+	{
+		if (strlen($prop) > 0 && strpos($prop, '_') !== false)
+		{
+			$exploded = explode('_', $prop);
+
+			if ($prop[0] != '_')
+			{
+				$prop = $exploded[0];
+				unset($exploded[0]);
+			}
+			else
+			{
+				$prop = $prop[0] . $exploded[1];
+				unset($exploded[1]);
+			}
+
+			$prop .= join('', array_map('ucfirst', array_merge($exploded)));
+		}
+
+		return $prop;
+	}
 }

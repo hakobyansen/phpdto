@@ -151,4 +151,27 @@ class DtoBuilderTest extends TestCase
 			$this->_builder->getMethods( $this->_configs, 'public' )
 		);
 	}
+
+	public function testConvertPropToSnakeCase()
+	{
+		$scProp = 'a_snake_case_prop';
+		$ccProp = $this->_builder->convertPropToSnakeCase($scProp);
+		$this->assertEquals('aSnakeCaseProp', $ccProp);
+
+		$scProp = '_a_snake_case_prop';
+		$ccProp = $this->_builder->convertPropToSnakeCase($scProp);
+		$this->assertEquals('_aSnakeCaseProp', $ccProp);
+
+		$scProp = '_somethingElse';
+		$ccProp = $this->_builder->convertPropToSnakeCase($scProp);
+		$this->assertEquals('_somethingElse', $ccProp);
+
+		$scProp = 'short';
+		$ccProp = $this->_builder->convertPropToSnakeCase($scProp);
+		$this->assertEquals('short', $ccProp);
+
+		$scProp = 'aNormalProp';
+		$ccProp = $this->_builder->convertPropToSnakeCase($scProp);
+		$this->assertEquals('aNormalProp', $ccProp);
+	}
 }
