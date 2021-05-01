@@ -5,14 +5,14 @@ namespace PhpDto;
 trait DtoSerialize
 {
     /**
-     * @param array $dtos
+     * @param array $dtoAr
      * @return array
      */
-    public static function serializeArray( array $dtos ): array
+    public static function serializeArray( array $dtoAr ): array
     {
         $results = [];
 
-        foreach ( $dtos as $dto )
+        foreach ($dtoAr as $dto )
         {
             $arr = self::castToArray( $dto );
 
@@ -32,9 +32,7 @@ trait DtoSerialize
 	{
 		$arr = self::castToArray( $dto );
 
-		$obj = (object)$arr;
-
-		return $obj;
+		return (object)$arr;
 	}
 
 	/**

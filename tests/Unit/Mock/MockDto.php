@@ -4,10 +4,11 @@ namespace Tests\Unit\Mock;
 
 use PhpDto\Dto;
 use PhpDto\DtoSerialize;
+use PhpDto\ToArray;
 
 class MockDto extends Dto
 {
-	use DtoSerialize;
+	use DtoSerialize, ToArray;
 
 	private ?string $_name;
 	private int $_count;

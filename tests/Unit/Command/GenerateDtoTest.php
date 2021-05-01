@@ -8,13 +8,8 @@ use PHPUnit\Framework\TestCase;
 
 class GenerateDtoTest extends TestCase
 {
-	/**
-	 * @var GenerateDto $_command
-	 */
 	private GenerateDto $_command;
-	/**
-	 * @var array $_configs
-	 */
+
 	private array $_configs;
 
 	protected function setUp(): void

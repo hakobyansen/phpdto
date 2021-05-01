@@ -73,4 +73,15 @@ class DtoTest extends TestCase
 		$this->assertEquals( $this->_mockData['count'], $dtoSerialized->count );
 		$this->assertEquals( $this->_mockData['is_true'], $dtoSerialized->isTrue );
 	}
+
+	public function testToArray()
+	{
+		$dto = new MockDto($this->_mockData);
+
+		$arr = $dto->toArray();
+
+		$this->assertEquals( $this->_mockData['name'], $arr['name'] );
+		$this->assertEquals( $this->_mockData['count'], $arr['count'] );
+		$this->assertEquals( $this->_mockData['is_true'], $arr['count'] );
+	}
 }
