@@ -5,9 +5,9 @@ namespace PhpDto\Cli;
 class Handler
 {
 	/**
-	 * @var string $_configFile
+	 * @var string|null
 	 */
-	private string $_configFile;
+	private ?string $_configFile;
 
 	/**
 	 * @param array $argv
