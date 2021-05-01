@@ -9,9 +9,9 @@ class MockDto extends Dto
 {
 	use DtoSerialize;
 
-	private $_name;
-	private $_count;
-	private $_isTrue;
+	private ?string $_name;
+	private int $_count;
+	private bool $_isTrue;
 
 	public function __construct( array $data )
 	{

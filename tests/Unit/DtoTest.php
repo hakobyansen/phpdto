@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class DtoTest extends TestCase
 {
-	private $_mockData;
+	private array $_mockData;
 
 	protected function setUp(): void
 	{
@@ -50,9 +50,9 @@ class DtoTest extends TestCase
 			$this->_mockData
 		];
 
-		$dtos = MockDto::mapArray( $data );
+		$dtoAr = MockDto::mapArray( $data );
 
-		$dto = $dtos[0];
+		$dto = $dtoAr[0];
 
 		$this->assertEquals( $this->_mockData['name'], $dto->getName() );
 		$this->assertEquals( $this->_mockData['count'], $dto->getCount() );
@@ -65,9 +65,9 @@ class DtoTest extends TestCase
 			$this->_mockData
 		];
 
-		$dtos = MockDto::mapArray( $data, true );
+		$dtoAr = MockDto::mapArray( $data, true );
 
-		$dtoSerialized = $dtos[0];
+		$dtoSerialized = $dtoAr[0];
 
 		$this->assertEquals( $this->_mockData['name'], $dtoSerialized->name );
 		$this->assertEquals( $this->_mockData['count'], $dtoSerialized->count );

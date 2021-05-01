@@ -11,24 +11,13 @@ class DtoFakerTest extends TestCase
 	/**
 	 * @var string $_patternPath
 	 */
-	private $_patternPath;
-
-	/**
-	 * @var array $_mockData
-	 */
-	private $_mockData;
+	private string $_patternPath;
 
 	public function setUp(): void
 	{
 		parent::setUp();
 
 		$this->_patternPath = __DIR__ . '/../../files/dto_pattern.json';
-
-		$this->_mockData = [
-			'name' => 'Mock name',
-			'count' => 4,
-			'is_true' => true
-		];
 	}
 
 	/**
@@ -51,13 +40,12 @@ class DtoFakerTest extends TestCase
 		$length = 5;
 		$data = DtoFaker::fakeArray( MockDto::class, $length );
 
-		$this->assertEquals( $length, count($data) );
+		$this->assertCount($length, $data);
 
 		// testing the default value of $length param of fakeArray method
 		$data = DtoFaker::fakeArray( MockDto::class );
 
-		$this->assertEquals( 10, count($data) );
-
+		$this->assertCount( 10, $data );
 	}
 
 	/**

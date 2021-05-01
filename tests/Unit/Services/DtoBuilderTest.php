@@ -2,8 +2,6 @@
 
 namespace Tests\Unit\Services;
 
-use PhpDto\Dto;
-use PhpDto\DtoSerialize;
 use PhpDto\Services\DtoBuilder;
 use PHPUnit\Framework\TestCase;
 
@@ -12,12 +10,12 @@ class DtoBuilderTest extends TestCase
 	/**
 	 * @var DtoBuilder $_builder;
 	 */
-	private $_builder;
+	private DtoBuilder $_builder;
 
 	/**
-	 * @var $_configs
+	 * @var array $_configs
 	 */
-	private $_configs;
+	private array $_configs;
 
 	protected function setUp(): void
 	{

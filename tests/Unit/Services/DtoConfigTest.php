@@ -10,7 +10,7 @@ class DtoConfigTest extends TestCase
 	/**
 	 * @var DtoConfig $_dtoConfig
 	 */
-	private $_dtoConfig;
+	private DtoConfig $_dtoConfig;
 	
 	protected function setUp(): void
 	{
