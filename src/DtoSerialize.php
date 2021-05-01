@@ -45,7 +45,7 @@ trait DtoSerialize
 	{
 		$arr = [];
 
-		$vars = (array)get_object_vars($dto);
+		$vars = get_object_vars($dto);
 
 		foreach ( $vars as $key => $value )
 		{
