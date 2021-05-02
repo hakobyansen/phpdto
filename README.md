@@ -324,7 +324,7 @@ class MockDto extends Dto
 }
 
 $mockData = [
-    'name'    => 'Mock name',
+    'name' => 'Mock name',
 	'count'   => 4,
 	'is_true' => true
 ];
