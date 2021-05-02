@@ -2,7 +2,7 @@ version: '3'
 
 services:
   phpfpm:
-    image: adhocore/phpfpm:7.4
+    image: adhocore/phpfpm:8.0
     container_name: phpdto
     ports:
       - 9000:9000
