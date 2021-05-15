@@ -7,7 +7,7 @@
 
 > A CLI tool for PHP Data Transfer Objects generation.
 
-This utility gives an ability to generate PHP 8 8 DTO classes based on json pattern.
+This utility gives an ability to generate PHP 8 DTO classes based on json pattern.
 
 ## Installation
 
