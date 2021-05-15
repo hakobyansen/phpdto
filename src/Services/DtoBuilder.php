@@ -60,7 +60,7 @@ class DtoBuilder
 	{
 		$props = [];
 
-		foreach ($configs['rules'] as $key => $value)
+		foreach ($configs['props'] as $key => $value)
 		{
 			$type = '';
 
@@ -98,7 +98,7 @@ class DtoBuilder
     {
         $keys = [];
 
-        foreach ( $configs['rules'] as $key => $value )
+        foreach ( $configs['props'] as $key => $value )
         {
         		$key = $this->convertPropToSnakeCase($key);
 
@@ -117,18 +117,18 @@ class DtoBuilder
     {
         $methods = [];
 
-        foreach ($configs['rules'] as $key => $value)
+        foreach ($configs['props'] as $key => $value)
         {
-            $rules = explode('|', $value);
+            $props = explode('|', $value);
 
             $returnType = '';
 
-            $returnType .= in_array( 'nullable', $rules ) ? '?' : '';
-            $returnType .= in_array( 'int', $rules ) ? 'int' : '';
-            $returnType .= in_array( 'float', $rules ) ? 'float' : '';
-            $returnType .= in_array( 'string', $rules ) ? 'string' : '';
-            $returnType .= in_array( 'bool', $rules ) ? 'bool' : '';
-            $returnType .= in_array( 'array', $rules ) ? 'array' : '';
+            $returnType .= in_array( 'nullable', $props ) ? '?' : '';
+            $returnType .= in_array( 'int', $props ) ? 'int' : '';
+            $returnType .= in_array( 'float', $props ) ? 'float' : '';
+            $returnType .= in_array( 'string', $props ) ? 'string' : '';
+            $returnType .= in_array( 'bool', $props ) ? 'bool' : '';
+            $returnType .= in_array( 'array', $props ) ? 'array' : '';
 
 			  if (strpos($key, '_') !== false)
 			  {

@@ -32,7 +32,7 @@ class DtoFaker
 	 */
 	public static function fakeSingle( string $dtoClassName ): array
 	{
-		$rules = [];
+		$props = [];
 
 		$reflectionClass = new \ReflectionClass( $dtoClassName );
 		$reflectionProperties = $reflectionClass->getProperties();
@@ -54,24 +54,24 @@ class DtoFaker
 			{
 				$returnType = $reflectionMethod->getReturnType();
 
-				$rule = $returnType->getName();
+				$prop = $returnType->getName();
 
 				if( $returnType->allowsNull() )
 				{
-					$rule .= '|nullable';
+					$prop .= '|nullable';
 				}
 			}
 			else
 			{
-				$rule = 'string';
+				$prop = 'string';
 			}
 
 			// Converting camelCase to snake_case
 			$propertyName = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $propertyName));
-			$rules[$propertyName] = $rule;
+			$props[$propertyName] = $prop;
 		}
 
-		return self::fakeItem( $rules );
+		return self::fakeItem( $props );
 	}
 
 	/**
@@ -87,11 +87,11 @@ class DtoFaker
 		if( file_exists($patternPath) )
 		{
 			$obj = json_decode( file_get_contents($patternPath) );
-			$rules = (array)$obj->rules;
+			$props = (array)$obj->props;
 
 			for( $i = 0; $i < $length; $i++ )
 			{
-				$data[] = self::fakeItem( $rules );
+				$data[] = self::fakeItem( $props );
 			}
 		}
 
@@ -110,27 +110,27 @@ class DtoFaker
 		if( file_exists($patternPath) )
 		{
 			$obj = json_decode( file_get_contents($patternPath) );
-			$rules = (array)$obj->rules;
-			$data = self::fakeItem( $rules);
+			$props = (array)$obj->props;
+			$data = self::fakeItem( $props);
 		}
 
 		return $data;
 	}
 
 	/**
-	 * @param array $rules
+	 * @param array $props
 	 * @return array
 	 * @throws \Exception
 	 */
-	public static function fakeItem(array $rules ): array
+	public static function fakeItem(array $props ): array
 	{
 		$item = [];
 
-		foreach ( $rules as $key => $value )
+		foreach ( $props as $key => $value )
 		{
-			$rules = explode('|', $value);
+			$props = explode('|', $value);
 
-			$generatedValue = self::generateValue( $rules );
+			$generatedValue = self::generateValue( $props );
 
 			$item[$key] = $generatedValue;
 		}
@@ -139,27 +139,27 @@ class DtoFaker
 	}
 
 	/**
-	 * @param array $rules
+	 * @param array $props
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	public static function generateValue( array $rules )
+	public static function generateValue( array $props )
 	{
 		$value = null;
 
-		if( in_array( 'string', $rules ) )
+		if( in_array( 'string', $props ) )
 		{
 			$value = self::randomString();
 		}
-		elseif ( in_array( 'int', $rules ) )
+		elseif ( in_array( 'int', $props ) )
 		{
 			$value = random_int(100, 999);
 		}
-		elseif( in_array( 'bool', $rules ) )
+		elseif( in_array( 'bool', $props ) )
 		{
 			$value = random_int(1, 2) === 1;
 		}
-		elseif( in_array( 'float', $rules ) )
+		elseif( in_array( 'float', $props ) )
 		{
 			$res = random_int(10, 100) / random_int(1, 10);
 

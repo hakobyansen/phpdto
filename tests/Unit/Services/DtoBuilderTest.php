@@ -25,7 +25,7 @@ class DtoBuilderTest extends TestCase
 
 		$this->_configs = [
 			'class' => 'item',
-			'rules' => [
+			'props' => [
 				'id' => 'int',
 				'count' => 'nullable|int',
 				'name' => 'string',

@@ -50,7 +50,7 @@ An example of DTO pattern:
 {
   "class": "item",
   "namespace_postfix": "",
-  "rules": {
+  "props": {
     "id": "int",
     "count": "nullable|int",
     "name": "string",
@@ -77,7 +77,7 @@ class will be `App\Dto\User`.
 
 You can leave namespace postfix empty.
 
-**rules**
+**props**
 
 This object contains information about DTO class properties and methods. Keys will be cast to class properties. Values
 contain information about getters return types.
