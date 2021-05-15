@@ -8,8 +8,6 @@ use Exception;
 
 class HandlerTest extends TestCase
 {
-	private array $_args;
-
 	private Handler $_handler;
 
 	protected function setUp(): void
@@ -17,10 +15,6 @@ class HandlerTest extends TestCase
 		parent::setUp();
 
 		$this->_handler = new Handler();
-
-		$this->_args = [
-			'-f=dto_pattern'
-		];
 	}
 
 	/**
@@ -28,10 +22,24 @@ class HandlerTest extends TestCase
 	 */
 	public function testHandleArgs()
 	{
-		$this->_handler->handleArgs( $this->_args );
+		$this->_handler->handleArgs(['phpdto', '-f=dto_pattern']);
 
 		$this->assertEquals(
-			'dto_pattern',
+			'dto_pattern.json',
+			$this->_handler->getConfigFile()
+		);
+
+		$this->_handler->handleArgs(['phpdto', '-f', 'dto_pattern']);
+
+		$this->assertEquals(
+			'dto_pattern.json',
+			$this->_handler->getConfigFile()
+		);
+
+		$this->_handler->handleArgs(['phpdto', '-f', 'dto_pattern.json']);
+
+		$this->assertEquals(
+			'dto_pattern.json',
 			$this->_handler->getConfigFile()
 		);
 	}
