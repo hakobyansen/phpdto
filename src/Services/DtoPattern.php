@@ -16,7 +16,7 @@ class DtoPattern
 	 */
 	public function setPattern( Handler $handler ): void
 	{
-		$fileDir = getenv('PHP_DTO_PATTERNS_DIR') .'/' . $handler->getConfigFile().'.json';
+		$fileDir = getenv('PHP_DTO_PATTERNS_DIR') .'/' . $handler->getConfigFile();
 
 		$resource = fopen($fileDir, 'r');
 		$patternJson = fread($resource, filesize($fileDir));
