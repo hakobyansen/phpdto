@@ -73,7 +73,7 @@ class Handler
 			}
 			else
 			{
-				echo "Something went wrong while copying the {$destination} file.\n";
+				echo "Something went wrong while copying the {$source} file.\n";
 			}
 		}
 		else

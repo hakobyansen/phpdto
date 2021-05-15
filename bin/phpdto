@@ -26,7 +26,7 @@ try
 	$dtoPattern = new DtoPattern();
 	$dtoPattern->setPattern( $handler );
 
-	$maker = new Maker( $dtoPattern->getPattern(), $handler );
+	$maker = new Maker( $dtoPattern->getPattern() );
 
 	$maker->makeDTO();
 }

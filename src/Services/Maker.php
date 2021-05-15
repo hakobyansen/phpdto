@@ -2,7 +2,6 @@
 
 namespace PhpDto\Services;
 
-use PhpDto\Cli\Handler;
 use PhpDto\Command\GenerateDto;
 use PhpDto\Command\Invoker;
 use PhpDto\Command\Receiver;
@@ -15,19 +14,12 @@ class Maker
 	private array $_configs;
 
 	/**
-	 * @var Handler $_handler
-	 */
-	private Handler $_handler;
-
-	/**
 	 * Maker constructor.
 	 * @param array $configs
-	 * @param Handler $handler
 	 */
-	public function __construct( array $configs, Handler $handler )
+	public function __construct( array $configs )
 	{
 		$this->_configs = $configs;
-		$this->_handler = $handler;
 	}
 
 	/**
