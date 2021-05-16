@@ -64,7 +64,7 @@ class DtoBuilder
 		{
 			$type = '';
 
-			if( strpos($value, 'nullable') !== false )
+			if( str_contains($value, 'nullable') !== false )
 			{
 				$type = '?';
 				$value = str_replace('nullable|', '', $value);
