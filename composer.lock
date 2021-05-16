@@ -4,8 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0ea002150dc3d25239a4a5eaa90b9595",
-    "packages": [],
+    "content-hash": "6413595ff2b0df3deb4c89fa51f498d3",
+    "packages": [
+        {
+            "name": "codebot/phpenum",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/c0d3b0t/phpenum.git",
+                "reference": "a9594daa6594908e49df31fd88e8b1bc68c26819"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/c0d3b0t/phpenum/zipball/a9594daa6594908e49df31fd88e8b1bc68c26819",
+                "reference": "a9594daa6594908e49df31fd88e8b1bc68c26819",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Enum\\": "src/"
+                },
+                "psr-0": {
+                    "Enum\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Senik Hakobyan",
+                    "email": "sen.hakobyan@gmail.com"
+                }
+            ],
+            "description": "Enum helper, that will help you to define Enum types easily by defining just constants.",
+            "time": "2021-05-07T11:08:17+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
