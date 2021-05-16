@@ -95,7 +95,7 @@ class DtoBuilderTest extends TestCase
 
 		$this->assertEquals(
 			$expected,
-			$this->_builder->getProps( $this->_configs, 'private' )
+			$this->_builder->getProps( $this->_configs )
 		);
 	}
 
