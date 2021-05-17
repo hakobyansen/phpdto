@@ -28,7 +28,7 @@ class GenerateDto extends Command
 		$DtoBuilder = new DtoBuilder();
 
 		$ValueObject->setNamespace( $DtoBuilder->getNamespace( $dtoConfigs ) )
-			->setModules( $DtoBuilder->getModules() )
+			->setModules( $DtoBuilder->getModules( $dtoConfigs ) )
 			->setClassName( $DtoBuilder->getClassName( $dtoConfigs ) )
 			->setTraits( $DtoBuilder->getTraits() )
 			->setProps( $DtoBuilder->getProps( $dtoConfigs ) )
