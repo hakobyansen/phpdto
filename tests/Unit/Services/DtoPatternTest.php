@@ -35,6 +35,9 @@ class DtoPatternTest extends TestCase
 		$expected = [
 			'class' => 'Item',
 			'namespace_postfix' => '\Item',
+			'modules' => [
+				'enum' => 'Enum\Enum'
+			],
 			'props' => [
 				'id' => 'int',
 				'count' => 'nullable|int',

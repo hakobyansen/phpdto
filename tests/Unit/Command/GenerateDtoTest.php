@@ -20,11 +20,14 @@ class GenerateDtoTest extends TestCase
 
 		$this->_configs = [
 			'class' => 'item',
+			'modules' => [
+				'enum' => 'Enum\Enum',
+			],
 			'props' => [
 				'id' => 'int',
-				'count' => 'nullable|int',
+				'count' => '?int',
 				'name' => 'string',
-				'description' => 'nullable|string'
+				'description' => '?string'
 			]
 		];
 	}
@@ -47,7 +50,7 @@ class GenerateDtoTest extends TestCase
 		);
 
 		$this->assertEquals(
-			[],
+			['enum' => 'Enum\Enum'],
 			$classVO->getModules()
 		);
 
