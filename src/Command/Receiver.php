@@ -23,7 +23,7 @@ class Receiver
 			$stick->eol()->modules( $class->getModules() )->eol();
 		}
 
-		$stick->class( $class->getClassName(), '\\'.Dto::class );
+		$stick->class( $class->getClassName(), 'Dto');
 
 		if( !empty( $class->getTraits() ) )
 		{

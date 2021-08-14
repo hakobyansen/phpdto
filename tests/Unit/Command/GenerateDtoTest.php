@@ -55,7 +55,7 @@ class GenerateDtoTest extends TestCase
 		);
 
 		$this->assertEquals(
-			[ '\PhpDto\DtoSerialize' ],
+			[ 'DtoSerialize' ],
 			$classVO->getTraits()
 		);
 

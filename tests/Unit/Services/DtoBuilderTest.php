@@ -101,7 +101,7 @@ class DtoBuilderTest extends TestCase
 	public function testGetTraits()
 	{
 		$this->assertEquals(
-			[ '\PhpDto\DtoSerialize' ],
+			[ 'DtoSerialize' ],
 			$this->_builder->getTraits()
 		);
 	}

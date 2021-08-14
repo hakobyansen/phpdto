@@ -40,8 +40,13 @@ class DtoBuilder
 	 */
 	public function getModules( array $configs ): array
 	{
+		$defaultModules = [
+			'PhpDto\Dto',
+			'PhpDto\DtoSerialize'
+		];
+
 		return $this->mergeModulesFromProps(
-			modules: $configs['modules'] ?? [],
+			modules: $configs['modules'] ?? $defaultModules,
 			props: $configs['props'] ?? []
 		);
 	}
@@ -52,7 +57,7 @@ class DtoBuilder
 	public function getTraits(): array
 	{
 		return [
-			'\\'.DtoSerialize::class
+			'DtoSerialize'
 		];
 	}
 
