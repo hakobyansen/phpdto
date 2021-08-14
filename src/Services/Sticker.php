@@ -2,6 +2,8 @@
 
 namespace PhpDto\Services;
 
+use PhpDto\Types\Prop;
+
 class Sticker
 {
 	/**
@@ -111,7 +113,7 @@ class Sticker
 
 	/**
 	 * @param string $param
-	 * @param array $props
+	 * @param Prop[] $props
 	 * @return Sticker
 	 */
 	public function constructor( string $param, array $props ): Sticker
@@ -121,10 +123,11 @@ class Sticker
 
 		foreach ($props as $prop)
 		{
-			$nullHandler = str_contains(haystack: $prop, needle: '?') ? ' ?? null' : '';
+			$propName = $prop->getName();
+			$nullHandler = $prop->isIsNullable() ? ' ?? null' : '';
 
-			$str .= "\t\t" . '$this->_' . $prop . ' = $' .
-				$param . "['" . strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $prop)) . "']" .
+			$str .= "\t\t" . '$this->_' . $propName . ' = $' .
+				$param . "['" . strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $propName)) . "']" .
 				$nullHandler . ";\n";
 		}
 

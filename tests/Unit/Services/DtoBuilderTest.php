@@ -4,6 +4,7 @@ namespace Tests\Unit\Services;
 
 use PhpDto\Enum\Types;
 use PhpDto\Services\DtoBuilder;
+use PhpDto\Types\Prop;
 use PHPUnit\Framework\TestCase;
 
 class DtoBuilderTest extends TestCase
@@ -135,7 +136,9 @@ class DtoBuilderTest extends TestCase
 
 	public function testGetConstructorProps()
 	{
-		$expected = [
+		$props = $this->_builder->getConstructorProps( $this->_configs );
+
+		$propNames = [
 			'id',
 			'count',
 			'name',
@@ -147,8 +150,13 @@ class DtoBuilderTest extends TestCase
 		];
 
 		$this->assertEquals(
-			$expected,
-			$this->_builder->getConstructorProps( $this->_configs )
+			expected: $propNames,
+			actual: array_map(
+				callback: function(Prop $prop) {
+					return $prop->getName();
+				},
+				array: $props
+			)
 		);
 	}
 

@@ -4,6 +4,7 @@ namespace PhpDto\Services;
 
 use PhpDto\DtoSerialize;
 use PhpDto\Enum\Types;
+use PhpDto\Types\Prop;
 
 class DtoBuilder
 {
@@ -97,16 +98,19 @@ class DtoBuilder
 	 */
     public function getConstructorProps( array $configs ): array
     {
-        $keys = [];
+        $props = [];
 
         foreach ( $configs['props'] as $key => $value )
         {
-        		$key = $this->convertPropToSnakeCase($key);
+        		$prop = new Prop();
 
-            $keys[] = $key;
+        		$prop->setIsNullable(str_contains(haystack: $key, needle: $value))
+					->setName($this->convertPropToSnakeCase($key));
+
+            $props[] = $prop;
         }
 
-        return $keys;
+        return $props;
     }
 
     /**
