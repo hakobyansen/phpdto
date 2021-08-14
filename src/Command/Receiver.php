@@ -10,44 +10,44 @@ class Receiver
 {
 	/**
 	 * @param $handle
-	 * @param ClassValueObject $classVO
+	 * @param ClassValueObject $class
 	 */
-	public function write($handle, ClassValueObject $classVO): void
+	public function write($handle, ClassValueObject $class): void
 	{
 		$stick = new Sticker();
 
-		$stick->head( $classVO->getNamespace() )->eol()->eol();
+		$stick->head( $class->getNamespace() )->eol();
 
-		if( !empty( $classVO->getModules() ) )
+		if( !empty( $class->getModules() ) )
 		{
-			$stick->eol()->modules( $classVO->getModules() )->eol();
+			$stick->eol()->modules( $class->getModules() )->eol();
 		}
 
-		$stick->class( $classVO->getClassName(), '\\'.Dto::class );
+		$stick->class( $class->getClassName(), '\\'.Dto::class );
 
-		if( !empty( $classVO->getTraits() ) )
+		if( !empty( $class->getTraits() ) )
 		{
-			$stick->traits( $classVO->getTraits() )->eol();
+			$stick->traits( $class->getTraits() )->eol();
 		}
 
-		if( !empty( $classVO->getProps() ) )
+		if( !empty( $class->getProps() ) )
 		{
-			$stick->props( $classVO->getProps() )->eol();
+			$stick->props( $class->getProps() )->eol();
 		}
 
-		if( !empty( $classVO->getConstructorProps() ) )
+		if( !empty( $class->getConstructorProps() ) )
 		{
-			$stick->constructor( $classVO->getConstructorParam(), $classVO->getConstructorProps() )->eol()->eol();
+			$stick->constructor( $class->getConstructorParam(), $class->getConstructorProps() )->eol()->eol();
 		}
 
-		if( !empty( $classVO->getMethods() ) )
+		if( !empty( $class->getMethods() ) )
 		{
-			$stick->methods( $classVO->getMethods() )->eol();
+			$stick->methods( $class->getMethods() )->eol();
 		}
 
 		fwrite( $handle, $stick->getOutput() );
 
-		$this->printMessage( $classVO->getNamespace().'\\'.$classVO->getClassName() );
+		$this->printMessage( $class->getNamespace().'\\'.$class->getClassName() );
 	}
 
 	/**
