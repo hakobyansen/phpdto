@@ -121,7 +121,11 @@ class Sticker
 
 		foreach ($props as $prop)
 		{
-			$str .= "\t\t" . '$this->_' . $prop . ' = $' . $param . "['" . strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $prop)) . "'];\n";
+			$nullHandler = str_contains(haystack: $prop, needle: '?') ? ' ?? null' : '';
+
+			$str .= "\t\t" . '$this->_' . $prop . ' = $' .
+				$param . "['" . strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $prop)) . "']" .
+				$nullHandler . ";\n";
 		}
 
 		$str .= "\t" . '}';
