@@ -2,6 +2,7 @@
 
 namespace PhpDto\Services;
 
+use PhpDto\Command\Command;
 use PhpDto\Command\GenerateDto;
 use PhpDto\Command\Invoker;
 use PhpDto\Command\Receiver;
@@ -25,13 +26,18 @@ class Maker
 	/**
 	 * @throws \Exception
 	 */
-	public function makeDTO()
+	public function makeClass()
 	{
 		$dtoBuilder = new DtoBuilder();
 
 		$className = $dtoBuilder->getClassName( $this->_configs );
+		$namespace = $dtoBuilder->getNamespace( $this->_configs );
 
-		$classDir = str_replace( '\\', '/', getenv('PHP_DTO_NAMESPACE') );
+		$classDir = str_replace(
+			search: '\\',
+			replace: '/',
+			subject: $namespace
+		);
 
 		if( !is_dir($classDir) )
 		{

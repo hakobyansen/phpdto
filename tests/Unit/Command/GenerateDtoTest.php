@@ -4,6 +4,7 @@ namespace Tests\Unit\Command;
 
 use PhpDto\Command\GenerateDto;
 use PhpDto\Command\Receiver;
+use PhpDto\Services\PropsHelper;
 use PHPUnit\Framework\TestCase;
 
 class GenerateDtoTest extends TestCase
@@ -78,7 +79,7 @@ class GenerateDtoTest extends TestCase
 			[
 				'id', 'count', 'name', 'description'
 			],
-			$classVO->getConstructorProps()
+			PropsHelper::getPropNames(props: $classVO->getConstructorProps())
 		);
 
 		$this->assertEquals(

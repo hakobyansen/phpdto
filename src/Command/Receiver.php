@@ -4,7 +4,7 @@ namespace PhpDto\Command;
 
 use PhpDto\Dto;
 use PhpDto\Services\ClassValueObject;
-use PhpDto\Services\Sticker;
+use PhpDto\Services\Binder;
 
 class Receiver
 {
@@ -14,38 +14,38 @@ class Receiver
 	 */
 	public function write($handle, ClassValueObject $class): void
 	{
-		$stick = new Sticker();
+		$bind = new Binder();
 
-		$stick->head( $class->getNamespace() )->eol();
+		$bind->head( $class->getNamespace() )->eol();
 
 		if( !empty( $class->getModules() ) )
 		{
-			$stick->eol()->modules( $class->getModules() )->eol();
+			$bind->eol()->modules( $class->getModules() )->eol();
 		}
 
-		$stick->class( $class->getClassName(), 'Dto');
+		$bind->class( $class->getClassName(), 'Dto');
 
 		if( !empty( $class->getTraits() ) )
 		{
-			$stick->traits( $class->getTraits() )->eol();
+			$bind->traits( $class->getTraits() )->eol();
 		}
 
 		if( !empty( $class->getProps() ) )
 		{
-			$stick->props( $class->getProps() )->eol();
+			$bind->props( $class->getProps() )->eol();
 		}
 
 		if( !empty( $class->getConstructorProps() ) )
 		{
-			$stick->constructor( $class->getConstructorParam(), $class->getConstructorProps() )->eol()->eol();
+			$bind->constructor( $class->getConstructorParam(), $class->getConstructorProps() )->eol()->eol();
 		}
 
 		if( !empty( $class->getMethods() ) )
 		{
-			$stick->methods( $class->getMethods() )->eol();
+			$bind->methods( $class->getMethods() )->eol();
 		}
 
-		fwrite( $handle, $stick->getOutput() );
+		fwrite( $handle, $bind->getOutput() );
 
 		$this->printMessage( $class->getNamespace().'\\'.$class->getClassName() );
 	}

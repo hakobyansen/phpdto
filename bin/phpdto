@@ -28,7 +28,7 @@ try
 
 	$maker = new Maker( $dtoPattern->getPattern() );
 
-	$maker->makeDTO();
+	$maker->makeClass();
 }
 catch ( \Exception $exception )
 {

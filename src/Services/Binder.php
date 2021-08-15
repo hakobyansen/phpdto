@@ -4,7 +4,7 @@ namespace PhpDto\Services;
 
 use PhpDto\Types\Prop;
 
-class Sticker
+class Binder
 {
 	/**
 	 * @var string $_output
@@ -21,9 +21,9 @@ class Sticker
 
 	/**
 	 * @param string $namespace
-	 * @return Sticker
+	 * @return Binder
 	 */
-	public function head( string $namespace ): Sticker
+	public function head( string $namespace ): Binder
 	{
 		$str = '<?php' . PHP_EOL . PHP_EOL;
 
@@ -36,9 +36,9 @@ class Sticker
 
 	/**
 	 * @param array $modules
-	 * @return Sticker
+	 * @return Binder
 	 */
-	public function modules( array $modules ): Sticker
+	public function modules( array $modules ): Binder
 	{
 		$str = '';
 
@@ -56,9 +56,9 @@ class Sticker
 	/**
 	 * @param string $className
 	 * @param string|null $parentClassName
-	 * @return Sticker
+	 * @return Binder
 	 */
-	public function class( string $className, string $parentClassName = null ): Sticker
+	public function class( string $className, string $parentClassName = null ): Binder
 	{
 		$str = 'class ' . $className;
 
@@ -76,9 +76,9 @@ class Sticker
 
 	/**
 	 * @param array $traits
-	 * @return Sticker
+	 * @return Binder
 	 */
-	public function traits( array $traits ): Sticker
+	public function traits( array $traits ): Binder
 	{
 		$str = '';
 
@@ -93,9 +93,9 @@ class Sticker
 
 	/**
 	 * @param array $props
-	 * @return Sticker
+	 * @return Binder
 	 */
-	public function props( array $props ): Sticker
+	public function props( array $props ): Binder
 	{
 		$str = '';
 
@@ -114,9 +114,9 @@ class Sticker
 	/**
 	 * @param string $param
 	 * @param Prop[] $props
-	 * @return Sticker
+	 * @return Binder
 	 */
-	public function constructor( string $param, array $props ): Sticker
+	public function constructor( string $param, array $props ): Binder
 	{
 		$str = "\t" . 'public function __construct( array $' . $param . ' )' . PHP_EOL
 			. "\t" . '{' . PHP_EOL;
@@ -140,9 +140,9 @@ class Sticker
 
 	/**
 	 * @param array $methods
-	 * @return Sticker
+	 * @return Binder
 	 */
-	public function methods( array $methods ): Sticker
+	public function methods( array $methods ): Binder
 	{
 		$str = '';
 
@@ -174,9 +174,9 @@ class Sticker
 	}
 
 	/**
-	 * @return Sticker
+	 * @return Binder
 	 */
-	public function eol(): Sticker
+	public function eol(): Binder
 	{
 		$this->_output .= PHP_EOL;
 

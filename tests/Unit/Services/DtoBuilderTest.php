@@ -4,6 +4,7 @@ namespace Tests\Unit\Services;
 
 use PhpDto\Enum\Types;
 use PhpDto\Services\DtoBuilder;
+use PhpDto\Services\PropsHelper;
 use PhpDto\Types\Prop;
 use PHPUnit\Framework\TestCase;
 
@@ -151,12 +152,7 @@ class DtoBuilderTest extends TestCase
 
 		$this->assertEquals(
 			expected: $propNames,
-			actual: array_map(
-				callback: function(Prop $prop) {
-					return $prop->getName();
-				},
-				array: $props
-			)
+			actual: PropsHelper::getPropNames(props: $props)
 		);
 	}
 
