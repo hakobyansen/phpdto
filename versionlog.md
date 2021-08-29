@@ -4,6 +4,7 @@
 * Installed the [codebot/enum](https://github.com/c0d3b0t/phpenum) package.
 * Enhanced unit tests coverage.
 * Changed the required PHP version to >=8.0.
+* Fixed the bug with array casting for nested objects.
 
 ## 0.2.3 2021-03-26
 * Fixed bugs related to generated constructor props.

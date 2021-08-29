@@ -10,13 +10,15 @@ trait ToArray
 	 * @param bool $toSnakeCase
 	 * @return array
 	 */
-	public function toArray($toSnakeCase = true): array
+	public function toArray(bool $toSnakeCase = true): array
 	{
+		$arr = self::castToArray($this);
+
 		if($toSnakeCase)
 		{
 			$result = [];
 
-			foreach (self::castToArray($this) as $key => $value)
+			foreach ($arr as $key => $value)
 			{
 				$key = ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $key)), '_');
 
@@ -26,6 +28,6 @@ trait ToArray
 			return $result;
 		}
 
-		return self::castToArray($this);
+		return $arr;
 	}
 }

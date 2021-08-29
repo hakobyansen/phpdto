@@ -37,21 +37,37 @@ trait DtoSerialize
 
 	/**
 	 * @param Dto $dto
+	 * @param array $arr
 	 * @return array
 	 */
-	public static function castToArray( Dto $dto ): array
+	public static function castToArray( Dto $dto, array $arr = [] ): array
 	{
-		$arr = [];
-
-		$vars = get_object_vars($dto);
+		$vars = $dto->getObjectVars();
 
 		foreach ( $vars as $key => $value )
 		{
 			$key = str_replace('_', '', $key);
+			$temp = [];
 
-			$arr[$key] = $value;
+			if($value instanceof Dto)
+			{
+				$temp = self::castToArray($value, $temp);
+				$arr[$key] = $temp;
+			}
+			else
+			{
+				$arr[$key] = $value;
+			}
 		}
 
 		return $arr;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getObjectVars(): array
+	{
+		return get_object_vars($this);
 	}
 }
