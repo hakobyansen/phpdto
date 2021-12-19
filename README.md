@@ -52,9 +52,9 @@ An example of DTO pattern:
   "namespace_postfix": "",
   "props": {
     "id": "int",
-    "count": "nullable|int",
+    "count": "?int",
     "name": "string",
-    "description": "nullable|string",
+    "description": "?string",
     "is_active": "bool"
   }
 }
@@ -82,9 +82,9 @@ You can leave namespace postfix empty.
 This object contains information about DTO class properties and methods. Keys will be cast to class properties. Values
 contain information about getters return types.
 
-`"description" : "nullable|string"` - due to this pair `$_description` property will be added to DTO class with
-appropriate `private ?string $_description` property and `getDescription(): ?string` method, that expects return type "
-string" and allows nullable.
+`"description" : "?string"` - due to this pair `$_description` property will be added to DTO class with 
+`private ?string $_description` property and `getDescription(): ?string` method, that expects return type 
+"string" and allows null.
 
 ##### Generating DTO
 
