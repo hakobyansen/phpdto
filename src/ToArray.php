@@ -15,23 +15,20 @@ trait ToArray
 	{
 		$arr = self::castToArray($this);
 
-		if($toSnakeCase)
+		$result = [];
+
+		foreach ($arr as $key => $value)
 		{
-			$result = [];
+			$key = $toSnakeCase ?
+				ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $key)), '_') :
+				lcfirst($key);
 
-			foreach ($arr as $key => $value)
+			if($value !== null || $includeNulls)
 			{
-				$key = ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $key)), '_');
-
-				if($value !== null || $includeNulls)
-				{
-					$result[$key] = $value;
-				}
+				$result[$key] = $value;
 			}
-
-			return $result;
 		}
 
-		return $arr;
+		return $result;
 	}
 }
