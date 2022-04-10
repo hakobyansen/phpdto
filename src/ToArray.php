@@ -8,9 +8,10 @@ trait ToArray
 
 	/**
 	 * @param bool $toSnakeCase
+	 * @param bool $includeNulls
 	 * @return array
 	 */
-	public function toArray(bool $toSnakeCase = true): array
+	public function toArray(bool $toSnakeCase = true, bool $includeNulls = false): array
 	{
 		$arr = self::castToArray($this);
 
@@ -22,7 +23,10 @@ trait ToArray
 			{
 				$key = ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $key)), '_');
 
-				$result[$key] = $value;
+				if($value !== null || $includeNulls)
+				{
+					$result[$key] = $value;
+				}
 			}
 
 			return $result;

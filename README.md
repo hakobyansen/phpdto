@@ -348,8 +348,13 @@ array(3) {
 }
 ```
 
-Though, if you want to keep array keys format to be same as class fields, you can pass false to `toArray` method:
-`$arr = $dto->toArray(false);` or `$arr = $dto->toArray(toSnakeCase: false);`
+`toArray` method accepts two parameters: `toSnakeCase` and `includeNulls`:
+
+If you want to keep array keys format to be same as class fields, you can pass `toSnakeCase: false` parameter:
+`$arr = $dto->toArray(toSnakeCase: false);`
+
+If you want to include keys with `null` values, you can pass `includeNulls: true` parameter:
+`$arr = $dto->toArray(includeNulls: true);`
 
 The output then will be:
 ```
