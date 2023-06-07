@@ -9,9 +9,14 @@ trait ToArray
 	/**
 	 * @param bool $toSnakeCase
 	 * @param bool $includeNulls
+	 * @param string $keyPrefix
 	 * @return array
 	 */
-	public function toArray(bool $toSnakeCase = true, bool $includeNulls = false): array
+	public function toArray(
+		bool $toSnakeCase = true,
+		bool $includeNulls = false,
+		string $keyPrefix = ''
+	): array
 	{
 		$arr = self::castToArray($this);
 
@@ -22,6 +27,8 @@ trait ToArray
 			$key = $toSnakeCase ?
 				ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $key)), '_') :
 				lcfirst($key);
+
+			$key = "{$keyPrefix}{$key}";
 
 			if($value !== null || $includeNulls)
 			{

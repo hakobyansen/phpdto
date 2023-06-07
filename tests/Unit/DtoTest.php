@@ -87,5 +87,13 @@ class DtoTest extends TestCase
 		$arr = $dto->toArray(toSnakeCase: false);
 
 		$this->assertArrayHasKey('isTrue', $arr);
+
+		$keyPrefix = 'id.';
+
+		$arr = $dto->toArray(keyPrefix: $keyPrefix);
+
+		$this->assertEquals( $this->_mockData['name'], $arr["{$keyPrefix}name"] );
+		$this->assertEquals( $this->_mockData['count'], $arr["{$keyPrefix}count"] );
+		$this->assertEquals( $this->_mockData['is_true'], $arr["{$keyPrefix}is_true"] );
 	}
 }
