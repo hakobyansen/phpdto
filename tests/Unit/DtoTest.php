@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Tests\Unit\Mock\MockDto;
 use PHPUnit\Framework\TestCase;
+use Tests\Unit\Mock\MockSubDto;
 
 class DtoTest extends TestCase
 {
@@ -16,7 +17,15 @@ class DtoTest extends TestCase
 		$this->_mockData = [
 			'name' => 'Mock name',
 			'count' => 4,
-			'is_true' => true
+			'is_true' => true,
+			'sub_dto' => new MockSubDto([
+				'sub_name' => 'Mock sub name',
+				'sub_count' => 5,
+				'sub_sub_dto' => [
+					'sub_name' => 'Mock sub sub name',
+					'sub_count' => 6,
+				]
+			]),
 		];
 	}
 
@@ -95,5 +104,13 @@ class DtoTest extends TestCase
 		$this->assertEquals( $this->_mockData['name'], $arr["{$keyPrefix}name"] );
 		$this->assertEquals( $this->_mockData['count'], $arr["{$keyPrefix}count"] );
 		$this->assertEquals( $this->_mockData['is_true'], $arr["{$keyPrefix}is_true"] );
+
+		$arr = $dto->toArray();
+
+		$this->assertEquals( $this->_mockData['sub_dto']->getSubName(), $arr['sub_dto']['sub_name'] );
+		$this->assertEquals( $this->_mockData['sub_dto']->getSubCount(), $arr['sub_dto']['sub_count'] );
+
+		$this->assertEquals( $this->_mockData['sub_dto']->getSubSubDto()->getSubName(), $arr['sub_dto']['sub_sub_dto']['sub_name'] );
+		$this->assertEquals( $this->_mockData['sub_dto']->getSubSubDto()->getSubCount(), $arr['sub_dto']['sub_sub_dto']['sub_count'] );
 	}
 }

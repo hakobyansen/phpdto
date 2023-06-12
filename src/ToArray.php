@@ -18,24 +18,11 @@ trait ToArray
 		string $keyPrefix = ''
 	): array
 	{
-		$arr = self::castToArray($this);
-
-		$result = [];
-
-		foreach ($arr as $key => $value)
-		{
-			$key = $toSnakeCase ?
-				ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $key)), '_') :
-				lcfirst($key);
-
-			$key = "{$keyPrefix}{$key}";
-
-			if($value !== null || $includeNulls)
-			{
-				$result[$key] = $value;
-			}
-		}
-
-		return $result;
+		return self::castToArray(
+			dto: $this,
+			toSnakeCase: $toSnakeCase,
+			includeNulls: $includeNulls,
+			keyPrefix: $keyPrefix
+		);
 	}
 }

@@ -38,9 +38,18 @@ trait DtoSerialize
 	/**
 	 * @param Dto $dto
 	 * @param array $arr
+	 * @param bool $toSnakeCase
+	 * @param bool $includeNulls
+	 * @param string $keyPrefix
 	 * @return array
 	 */
-	public static function castToArray( Dto $dto, array $arr = [] ): array
+	public static function castToArray(
+		Dto $dto,
+		array $arr = [],
+		bool $toSnakeCase = false,
+		bool $includeNulls = false,
+		string $keyPrefix = ''
+	): array
 	{
 		$vars = $dto->getObjectVars();
 
@@ -49,9 +58,21 @@ trait DtoSerialize
 			$key = str_replace('_', '', $key);
 			$temp = [];
 
+			$key = $toSnakeCase ?
+				ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $key)), '_') :
+				lcfirst($key);
+
+			$key = "{$keyPrefix}{$key}";
+
 			if($value instanceof Dto)
 			{
-				$temp = self::castToArray($value, $temp);
+				$temp = self::castToArray(
+					dto: $value,
+					arr: $temp,
+					toSnakeCase: $toSnakeCase,
+					includeNulls: $includeNulls,
+					keyPrefix: $keyPrefix,
+				);
 				$arr[$key] = $temp;
 			}
 			else
