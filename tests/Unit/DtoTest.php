@@ -112,5 +112,17 @@ class DtoTest extends TestCase
 
 		$this->assertEquals( $this->_mockData['sub_dto']->getSubSubDto()->getSubName(), $arr['sub_dto']['sub_sub_dto']['sub_name'] );
 		$this->assertEquals( $this->_mockData['sub_dto']->getSubSubDto()->getSubCount(), $arr['sub_dto']['sub_sub_dto']['sub_count'] );
+
+		$this->_mockData['sub_dto'] = null;
+
+		$dto = new MockDto($this->_mockData);
+
+		$arr = $dto->toArray();
+
+		$this->assertArrayNotHasKey(key: 'sub_dto', array: $arr);
+
+		$arr = $dto->toArray(includeNulls: true);
+
+		$this->assertArrayHasKey(key: 'sub_dto', array: $arr);
 	}
 }

@@ -75,7 +75,7 @@ trait DtoSerialize
 				);
 				$arr[$key] = $temp;
 			}
-			else
+			else if(!is_null($value) || $includeNulls)
 			{
 				$arr[$key] = $value;
 			}
