@@ -2,6 +2,8 @@
 
 namespace PhpDto;
 
+use stdClass;
+
 abstract class Dto
 {
 	use DtoSerialize;
@@ -31,9 +33,9 @@ abstract class Dto
 	/**
 	 * @param array $item
 	 * @param bool $shouldSerialize
-	 * @return Dto|\stdClass
+	 * @return Dto|stdClass
 	 */
-	public static function mapSingle(array $item, bool $shouldSerialize = false)
+	public static function mapSingle(array $item, bool $shouldSerialize = false): Dto|stdClass
 	{
 		$result = new static($item);
 

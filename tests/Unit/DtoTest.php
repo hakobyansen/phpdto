@@ -4,10 +4,11 @@ namespace Tests\Unit;
 
 use Tests\Unit\Mock\MockDto;
 use PHPUnit\Framework\TestCase;
+use Tests\Unit\Mock\MockSubDto;
 
 class DtoTest extends TestCase
 {
-	private $_mockData;
+	private array $_mockData;
 
 	protected function setUp(): void
 	{
@@ -16,7 +17,15 @@ class DtoTest extends TestCase
 		$this->_mockData = [
 			'name' => 'Mock name',
 			'count' => 4,
-			'is_true' => true
+			'is_true' => true,
+			'sub_dto' => new MockSubDto([
+				'sub_name' => 'Mock sub name',
+				'sub_count' => 5,
+				'sub_sub_dto' => [
+					'sub_name' => 'Mock sub sub name',
+					'sub_count' => 6,
+				]
+			]),
 		];
 	}
 
@@ -50,9 +59,9 @@ class DtoTest extends TestCase
 			$this->_mockData
 		];
 
-		$dtos = MockDto::mapArray( $data );
+		$dtoAr = MockDto::mapArray( $data );
 
-		$dto = $dtos[0];
+		$dto = $dtoAr[0];
 
 		$this->assertEquals( $this->_mockData['name'], $dto->getName() );
 		$this->assertEquals( $this->_mockData['count'], $dto->getCount() );
@@ -65,12 +74,55 @@ class DtoTest extends TestCase
 			$this->_mockData
 		];
 
-		$dtos = MockDto::mapArray( $data, true );
+		$dtoAr = MockDto::mapArray( $data, true );
 
-		$dtoSerialized = $dtos[0];
+		$dtoSerialized = $dtoAr[0];
 
 		$this->assertEquals( $this->_mockData['name'], $dtoSerialized->name );
 		$this->assertEquals( $this->_mockData['count'], $dtoSerialized->count );
 		$this->assertEquals( $this->_mockData['is_true'], $dtoSerialized->isTrue );
+	}
+
+	public function testToArray()
+	{
+		$dto = new MockDto($this->_mockData);
+
+		$arr = $dto->toArray();
+
+		$this->assertEquals( $this->_mockData['name'], $arr['name'] );
+		$this->assertEquals( $this->_mockData['count'], $arr['count'] );
+		$this->assertEquals( $this->_mockData['is_true'], $arr['count'] );
+
+		$arr = $dto->toArray(toSnakeCase: false);
+
+		$this->assertArrayHasKey('isTrue', $arr);
+
+		$keyPrefix = 'id.';
+
+		$arr = $dto->toArray(keyPrefix: $keyPrefix);
+
+		$this->assertEquals( $this->_mockData['name'], $arr["{$keyPrefix}name"] );
+		$this->assertEquals( $this->_mockData['count'], $arr["{$keyPrefix}count"] );
+		$this->assertEquals( $this->_mockData['is_true'], $arr["{$keyPrefix}is_true"] );
+
+		$arr = $dto->toArray();
+
+		$this->assertEquals( $this->_mockData['sub_dto']->getSubName(), $arr['sub_dto']['sub_name'] );
+		$this->assertEquals( $this->_mockData['sub_dto']->getSubCount(), $arr['sub_dto']['sub_count'] );
+
+		$this->assertEquals( $this->_mockData['sub_dto']->getSubSubDto()->getSubName(), $arr['sub_dto']['sub_sub_dto']['sub_name'] );
+		$this->assertEquals( $this->_mockData['sub_dto']->getSubSubDto()->getSubCount(), $arr['sub_dto']['sub_sub_dto']['sub_count'] );
+
+		$this->_mockData['sub_dto'] = null;
+
+		$dto = new MockDto($this->_mockData);
+
+		$arr = $dto->toArray();
+
+		$this->assertArrayNotHasKey(key: 'sub_dto', array: $arr);
+
+		$arr = $dto->toArray(includeNulls: true);
+
+		$this->assertArrayHasKey(key: 'sub_dto', array: $arr);
 	}
 }

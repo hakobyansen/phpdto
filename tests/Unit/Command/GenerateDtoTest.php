@@ -4,18 +4,14 @@ namespace Tests\Unit\Command;
 
 use PhpDto\Command\GenerateDto;
 use PhpDto\Command\Receiver;
+use PhpDto\Services\PropsHelper;
 use PHPUnit\Framework\TestCase;
 
 class GenerateDtoTest extends TestCase
 {
-	/**
-	 * @var GenerateDto $_command
-	 */
-	private $_command;
-	/**
-	 * @var array $_configs
-	 */
-	private $_configs;
+	private GenerateDto $_command;
+
+	private array $_configs;
 
 	protected function setUp(): void
 	{
@@ -25,11 +21,14 @@ class GenerateDtoTest extends TestCase
 
 		$this->_configs = [
 			'class' => 'item',
-			'rules' => [
+			'modules' => [
+				'enum' => 'Enum\Enum',
+			],
+			'props' => [
 				'id' => 'int',
-				'count' => 'nullable|int',
+				'count' => '?int',
 				'name' => 'string',
-				'description' => 'nullable|string'
+				'description' => '?string'
 			]
 		];
 	}
@@ -52,12 +51,12 @@ class GenerateDtoTest extends TestCase
 		);
 
 		$this->assertEquals(
-			[],
+			['enum' => 'Enum\Enum'],
 			$classVO->getModules()
 		);
 
 		$this->assertEquals(
-			[ '\PhpDto\DtoSerialize' ],
+			[ 'DtoSerialize' ],
 			$classVO->getTraits()
 		);
 
@@ -80,7 +79,7 @@ class GenerateDtoTest extends TestCase
 			[
 				'id', 'count', 'name', 'description'
 			],
-			$classVO->getConstructorProps()
+			PropsHelper::getPropNames(props: $classVO->getConstructorProps())
 		);
 
 		$this->assertEquals(

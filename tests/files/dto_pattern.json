@@ -1,7 +1,10 @@
 {
   "class": "Item",
   "namespace_postfix": "\\Item",
-  "rules": {
+  "modules": {
+    "enum": "Enum\\Enum"
+  },
+  "props": {
     "id": "int",
     "count": "nullable|int",
     "name": "string",
