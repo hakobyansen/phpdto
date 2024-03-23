@@ -13,8 +13,9 @@
   ],
   "bin": ["bin/phpdto"],
   "require": {
-    "php": ">=7.4",
-    "ext-json": "*"
+    "php": ">=8.0",
+    "ext-json": "*",
+    "codebot/phpenum": "^0.1.2"
   },
   "autoload": {
     "psr-4": {

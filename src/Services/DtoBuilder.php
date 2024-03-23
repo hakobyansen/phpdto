@@ -3,6 +3,8 @@
 namespace PhpDto\Services;
 
 use PhpDto\DtoSerialize;
+use PhpDto\Enum\Types;
+use PhpDto\Types\Prop;
 
 class DtoBuilder
 {
@@ -23,22 +25,31 @@ class DtoBuilder
 	}
 
 	/**
-	 * @param array $dtoConfigs
+	 * @param array $configs
 	 * @return string
 	 */
-	public function getClassName( array $dtoConfigs ): string
+	public function getClassName( array $configs ): string
 	{
-		$classPrefix = ucfirst( $dtoConfigs['class'] );
+		$classPrefix = ucfirst( $configs['class'] );
 
 		return $classPrefix.getenv( 'PHP_DTO_CLASS_POSTFIX' );
 	}
 
 	/**
+	 * @param array $configs
 	 * @return array
 	 */
-	public function getModules(): array
+	public function getModules( array $configs ): array
 	{
-		return [];
+		$defaultModules = [
+			'PhpDto\Dto',
+			'PhpDto\DtoSerialize'
+		];
+
+		return $this->mergeModulesFromProps(
+			modules: $configs['modules'] ?? $defaultModules,
+			props: $configs['props'] ?? []
+		);
 	}
 
 	/**
@@ -47,7 +58,7 @@ class DtoBuilder
 	public function getTraits(): array
 	{
 		return [
-			'\\'.DtoSerialize::class
+			'DtoSerialize'
 		];
 	}
 
@@ -60,22 +71,13 @@ class DtoBuilder
 	{
 		$props = [];
 
-		foreach ($configs['rules'] as $key => $value)
+		foreach ($configs['props'] as $key => $value)
 		{
-			$type = '';
-
-			if( strpos($value, 'nullable') !== false )
-			{
-				$type = '?';
-				$value = str_replace('nullable|', '', $value);
-				$value = str_replace('|nullable', '', $value);
-			}
-
-			$type .= $value;
-
 			$key = $this->convertPropToSnakeCase($key);
 
-			$props[] = "{$visibility} {$type}" . ' $_' . "{$key};";
+			$value = $this->getLastSegmentFromPath($value);
+
+			$props[] = "{$visibility} {$value}" . ' $_' . "{$key};";
 		}
 
 		return $props;
@@ -96,16 +98,19 @@ class DtoBuilder
 	 */
     public function getConstructorProps( array $configs ): array
     {
-        $keys = [];
+        $props = [];
 
-        foreach ( $configs['rules'] as $key => $value )
+        foreach ( $configs['props'] as $key => $value )
         {
-        		$key = $this->convertPropToSnakeCase($key);
+        		$prop = new Prop();
 
-            $keys[] = $key;
+        		$prop->setIsNullable(str_contains(haystack: $key, needle: $value))
+					->setName($this->convertPropToSnakeCase($key));
+
+            $props[] = $prop;
         }
 
-        return $keys;
+        return $props;
     }
 
     /**
@@ -115,37 +120,28 @@ class DtoBuilder
      */
     public function getMethods( array $configs, string $visibility = 'public' ): array
     {
-        $methods = [];
+		 $methods = [];
 
-        foreach ($configs['rules'] as $key => $value)
-        {
-            $rules = explode('|', $value);
+		 foreach ($configs['props'] as $key => $value)
+		 {
+			 if (str_contains($key, '_'))
+			 {
+				 $key = join('', array_map('ucfirst', explode('_', $key)));
+			 }
 
-            $returnType = '';
+			 $returnType = $this->getReturnTypeFromValue($value);
 
-            $returnType .= in_array( 'nullable', $rules ) ? '?' : '';
-            $returnType .= in_array( 'int', $rules ) ? 'int' : '';
-            $returnType .= in_array( 'float', $rules ) ? 'float' : '';
-            $returnType .= in_array( 'string', $rules ) ? 'string' : '';
-            $returnType .= in_array( 'bool', $rules ) ? 'bool' : '';
-            $returnType .= in_array( 'array', $rules ) ? 'array' : '';
+			 $declaration = 'function get' . ucfirst($key) . '(): ' . $returnType;
 
-			  if (strpos($key, '_') !== false)
-			  {
-				  $key = join('', array_map('ucfirst', explode('_', $key)));
-			  }
+			 $method['visibility'] = $visibility;
+			 $method['declaration'] = $declaration;
+			 $method['body'] = 'return $this->_' . lcfirst($key) . ';';
 
-            $declaration = 'function get'.ucfirst($key).'(): '.$returnType;
+			 $methods[] = $method;
+		 }
 
-            $method['visibility']  = $visibility;
-            $method['declaration'] = $declaration;
-            $method['body']        = 'return $this->_'.lcfirst($key).';';
-
-            $methods[] = $method;
-        }
-
-        return $methods;
-    }
+		 return $methods;
+	 }
 
 	/**
 	 * @param string $prop
@@ -153,7 +149,7 @@ class DtoBuilder
 	 */
 	public function convertPropToSnakeCase(string $prop): string
 	{
-		if (strlen($prop) > 0 && strpos($prop, '_') !== false)
+		if (strlen($prop) > 0 && str_contains($prop, '_'))
 		{
 			$exploded = explode('_', $prop);
 
@@ -172,5 +168,75 @@ class DtoBuilder
 		}
 
 		return $prop;
+	}
+
+	/**
+	 * @param string $value
+	 * @return string
+	 */
+	public function getReturnTypeFromValue(string $value): string
+	{
+		return $this->getLastSegmentFromPath($value);
+	}
+
+	/**
+	 * @param array $modules
+	 * @param array $props
+	 * @return array
+	 */
+	public function mergeModulesFromProps(array $modules, array $props): array
+	{
+		$types = new Types();
+
+		foreach ($props as $prop)
+		{
+			$prop = str_replace('?', '', $prop);
+
+			if( !$types->hasValue($prop) && !$this->isPropInModules($prop, $modules) )
+			{
+				$modules[] = $prop;
+			}
+		}
+
+		return $modules;
+	}
+
+	/**
+	 * @param string $prop
+	 * @param array $modules
+	 * @return bool
+	 */
+	public function isPropInModules(string $prop, array $modules): bool
+	{
+		$modules = array_map(function (string $namespace) use ($prop) {
+			if(str_contains($namespace, '\\'))
+			{
+				$exploded = explode('\\', $namespace);
+
+				return $exploded[count($exploded)-1];
+			}
+
+			return $prop;
+		}, $modules);
+
+		return in_array(needle: $prop, haystack: $modules);
+	}
+
+	/**
+	 * @param string $value
+	 * @return string
+	 */
+	public function getLastSegmentFromPath(string $value): string
+	{
+		if(str_contains($value, '\\'))
+		{
+			$nullChar = $value[0] === '?' ? '?' : '';
+
+			$exploded = explode('\\', $value);
+
+			$value = $nullChar . $exploded[count($exploded)-1];
+		}
+
+		return $value;
 	}
 }

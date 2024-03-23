@@ -2,7 +2,7 @@
 
 namespace PhpDto\Services;
 
-use PhpDto\Cli\Handler;
+use PhpDto\Command\Command;
 use PhpDto\Command\GenerateDto;
 use PhpDto\Command\Invoker;
 use PhpDto\Command\Receiver;
@@ -15,31 +15,29 @@ class Maker
 	private array $_configs;
 
 	/**
-	 * @var Handler $_handler
-	 */
-	private Handler $_handler;
-
-	/**
 	 * Maker constructor.
 	 * @param array $configs
-	 * @param Handler $handler
 	 */
-	public function __construct( array $configs, Handler $handler )
+	public function __construct( array $configs )
 	{
 		$this->_configs = $configs;
-		$this->_handler = $handler;
 	}
 
 	/**
 	 * @throws \Exception
 	 */
-	public function makeDTO()
+	public function makeClass()
 	{
 		$dtoBuilder = new DtoBuilder();
 
 		$className = $dtoBuilder->getClassName( $this->_configs );
+		$namespace = $dtoBuilder->getNamespace( $this->_configs );
 
-		$classDir = str_replace( '\\', '/', getenv('PHP_DTO_NAMESPACE') );
+		$classDir = str_replace(
+			search: '\\',
+			replace: '/',
+			subject: $namespace
+		);
 
 		if( !is_dir($classDir) )
 		{

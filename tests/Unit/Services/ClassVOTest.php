@@ -7,10 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class ClassVOTest extends TestCase
 {
-	/**
-	 * @var ClassValueObject $_valueObject
-	 */
-	private $_valueObject;
+	private ClassValueObject $_valueObject;
 
 	protected function setUp(): void
 	{

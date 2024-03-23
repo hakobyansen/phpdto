@@ -8,15 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class DtoPatternTest extends TestCase
 {
-	/**
-	 * @var Handler $_handler
-	 */
-	private $_handler;
-
-	/**
-	 * @var DtoPattern $_dtoConfig
-	 */
-	private $_dtoConfig;
+	private DtoPattern $_dtoConfig;
 
 	/**
 	 * @throws \Exception
@@ -27,15 +19,15 @@ class DtoPatternTest extends TestCase
 
 		putenv('PHP_DTO_PATTERNS_DIR='.__DIR__ . '/../../files/');
 
-		$this->_handler   = new Handler();
+		$handler = new Handler();
 		$this->_dtoConfig = new DtoPattern();
 
 		$args = [
 			'-f=dto_pattern'
 		];
 
-		$this->_handler->handleArgs( $args );
-		$this->_dtoConfig->setPattern( $this->_handler );
+		$handler->handleArgs( $args );
+		$this->_dtoConfig->setPattern($handler);
 	}
 
 	public function testSetPattern()
@@ -43,7 +35,10 @@ class DtoPatternTest extends TestCase
 		$expected = [
 			'class' => 'Item',
 			'namespace_postfix' => '\Item',
-			'rules' => [
+			'modules' => [
+				'enum' => 'Enum\Enum'
+			],
+			'props' => [
 				'id' => 'int',
 				'count' => 'nullable|int',
 				'name' => 'string',

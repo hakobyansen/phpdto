@@ -2,9 +2,10 @@
 
 namespace Tests\Unit\Services;
 
-use PhpDto\Dto;
-use PhpDto\DtoSerialize;
+use PhpDto\Enum\Types;
 use PhpDto\Services\DtoBuilder;
+use PhpDto\Services\PropsHelper;
+use PhpDto\Types\Prop;
 use PHPUnit\Framework\TestCase;
 
 class DtoBuilderTest extends TestCase
@@ -12,12 +13,12 @@ class DtoBuilderTest extends TestCase
 	/**
 	 * @var DtoBuilder $_builder;
 	 */
-	private $_builder;
+	private DtoBuilder $_builder;
 
 	/**
-	 * @var $_configs
+	 * @var array $_configs
 	 */
-	private $_configs;
+	private array $_configs;
 
 	protected function setUp(): void
 	{
@@ -27,12 +28,20 @@ class DtoBuilderTest extends TestCase
 
 		$this->_configs = [
 			'class' => 'item',
-			'rules' => [
+			'modules' => [
+				'Path\To\FirstCustomType',
+				'Path\To\SecondCustomType',
+			],
+			'props' => [
 				'id' => 'int',
-				'count' => 'nullable|int',
+				'count' => '?int',
 				'name' => 'string',
-				'description' => 'nullable|string'
-			]
+				'description' => '?string',
+				'first_custom_type' => 'FirstCustomType',
+				'second_custom_type' => '?SecondCustomType',
+				'third_custom_type' => 'Path\To\ThirdCustomType',
+				'fourth_custom_type' => '?Path\To\FourthCustomType',
+			],
 		];
 	}
 
@@ -43,6 +52,27 @@ class DtoBuilderTest extends TestCase
 		$this->assertEquals(
 			'App\DTO',
 			$this->_builder->getNamespace( $this->_configs )
+		);
+	}
+
+	public function testGetModules()
+	{
+		$types = new Types();
+		$expected = $this->_configs['modules'];
+
+		foreach ($this->_configs['props'] as $prop)
+		{
+			$prop = str_replace('?', '', $prop);
+
+			if( !$types->hasValue($prop) && !$this->_builder->isPropInModules($prop, $expected) )
+			{
+				$expected[] = $prop;
+			}
+		}
+
+		$this->assertEquals(
+			$expected,
+			$this->_builder->getModules( $this->_configs )
 		);
 	}
 
@@ -70,18 +100,10 @@ class DtoBuilderTest extends TestCase
 		);
 	}
 
-	public function testGetModules()
-	{
-		$this->assertEquals(
-			[],
-			$this->_builder->getModules()
-		);
-	}
-
 	public function testGetTraits()
 	{
 		$this->assertEquals(
-			[ '\PhpDto\DtoSerialize' ],
+			[ 'DtoSerialize' ],
 			$this->_builder->getTraits()
 		);
 	}
@@ -93,11 +115,15 @@ class DtoBuilderTest extends TestCase
 			'private ?int $_count;',
 			'private string $_name;',
 			'private ?string $_description;',
+			'private FirstCustomType $_firstCustomType;',
+			'private ?SecondCustomType $_secondCustomType;',
+			'private ThirdCustomType $_thirdCustomType;',
+			'private ?FourthCustomType $_fourthCustomType;',
 		];
 
 		$this->assertEquals(
 			$expected,
-			$this->_builder->getProps( $this->_configs, 'private' )
+			$this->_builder->getProps( $this->_configs )
 		);
 	}
 
@@ -111,13 +137,22 @@ class DtoBuilderTest extends TestCase
 
 	public function testGetConstructorProps()
 	{
-		$expected = [
-			'id', 'count', 'name', 'description'
+		$props = $this->_builder->getConstructorProps( $this->_configs );
+
+		$propNames = [
+			'id',
+			'count',
+			'name',
+			'description',
+			'firstCustomType',
+			'secondCustomType',
+			'thirdCustomType',
+			'fourthCustomType'
 		];
 
 		$this->assertEquals(
-			$expected,
-			$this->_builder->getConstructorProps( $this->_configs )
+			expected: $propNames,
+			actual: PropsHelper::getPropNames(props: $props)
 		);
 	}
 
@@ -144,11 +179,31 @@ class DtoBuilderTest extends TestCase
 				'declaration' => 'function getDescription(): ?string',
 				'body' => 'return $this->_description;'
 			],
+			[
+				'visibility' => 'public',
+				'declaration' => 'function getFirstCustomType(): FirstCustomType',
+				'body' => 'return $this->_firstCustomType;'
+			],
+			[
+				'visibility' => 'public',
+				'declaration' => 'function getSecondCustomType(): ?SecondCustomType',
+				'body' => 'return $this->_secondCustomType;'
+			],
+			[
+				'visibility' => 'public',
+				'declaration' => 'function getThirdCustomType(): ThirdCustomType',
+				'body' => 'return $this->_thirdCustomType;'
+			],
+			[
+				'visibility' => 'public',
+				'declaration' => 'function getFourthCustomType(): ?FourthCustomType',
+				'body' => 'return $this->_fourthCustomType;'
+			],
 		];
 
 		$this->assertEquals(
 			$expected,
-			$this->_builder->getMethods( $this->_configs, 'public' )
+			$this->_builder->getMethods( $this->_configs )
 		);
 	}
 

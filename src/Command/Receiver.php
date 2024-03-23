@@ -4,50 +4,50 @@ namespace PhpDto\Command;
 
 use PhpDto\Dto;
 use PhpDto\Services\ClassValueObject;
-use PhpDto\Services\Sticker;
+use PhpDto\Services\Binder;
 
 class Receiver
 {
 	/**
 	 * @param $handle
-	 * @param ClassValueObject $classVO
+	 * @param ClassValueObject $class
 	 */
-	public function write($handle, ClassValueObject $classVO): void
+	public function write($handle, ClassValueObject $class): void
 	{
-		$stick = new Sticker();
+		$bind = new Binder();
 
-		$stick->head( $classVO->getNamespace() )->eol()->eol();
+		$bind->head( $class->getNamespace() )->eol();
 
-		if( !empty( $classVO->getModules() ) )
+		if( !empty( $class->getModules() ) )
 		{
-			$stick->eol()->modules( $classVO->getModules() )->eol();
+			$bind->eol()->modules( $class->getModules() )->eol();
 		}
 
-		$stick->class( $classVO->getClassName(), '\\'.Dto::class );
+		$bind->class( $class->getClassName(), 'Dto');
 
-		if( !empty( $classVO->getTraits() ) )
+		if( !empty( $class->getTraits() ) )
 		{
-			$stick->traits( $classVO->getTraits() )->eol();
+			$bind->traits( $class->getTraits() )->eol();
 		}
 
-		if( !empty( $classVO->getProps() ) )
+		if( !empty( $class->getProps() ) )
 		{
-			$stick->props( $classVO->getProps() )->eol();
+			$bind->props( $class->getProps() )->eol();
 		}
 
-		if( !empty( $classVO->getConstructorProps() ) )
+		if( !empty( $class->getConstructorProps() ) )
 		{
-			$stick->constructor( $classVO->getConstructorParam(), $classVO->getConstructorProps() )->eol()->eol();
+			$bind->constructor( $class->getConstructorParam(), $class->getConstructorProps() )->eol()->eol();
 		}
 
-		if( !empty( $classVO->getMethods() ) )
+		if( !empty( $class->getMethods() ) )
 		{
-			$stick->methods( $classVO->getMethods() )->eol();
+			$bind->methods( $class->getMethods() )->eol();
 		}
 
-		fwrite( $handle, $stick->getOutput() );
+		fwrite( $handle, $bind->getOutput() );
 
-		$this->printMessage( $classVO->getNamespace().'\\'.$classVO->getClassName() );
+		$this->printMessage( $class->getNamespace().'\\'.$class->getClassName() );
 	}
 
 	/**

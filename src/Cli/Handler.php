@@ -5,9 +5,9 @@ namespace PhpDto\Cli;
 class Handler
 {
 	/**
-	 * @var string $_configFile
+	 * @var string|null
 	 */
-	private string $_configFile;
+	private ?string $_configFile;
 
 	/**
 	 * @param array $argv
@@ -16,13 +16,24 @@ class Handler
 	 */
 	public function handleArgs( array $argv ): Handler
 	{
-		foreach ( $argv as $value )
+		for ( $i = 0; $i < count($argv); $i++ )
 		{
+			$value = $argv[$i];
+
 			$substr = substr( $value, 0, 2 );
 
 			if( $substr === '-f' )
 			{
-				$this->setConfigFile( substr($value, 3) );
+				if(str_contains($value, '='))
+				{
+					$value = explode('=', $value)[1];
+				}
+				else if(isset($argv[$i+1]))
+				{
+					$value = $argv[$i+1];
+				}
+
+				$this->setConfigFile( $value );
 			}
 		}
 
@@ -55,7 +66,7 @@ class Handler
 	 */
 	public function setConfigFile( ?string $configFile ): void
 	{
-		$this->_configFile = $configFile;
+		$this->_configFile = str_contains($configFile, '.json') ? $configFile : $configFile.'.json';;
 	}
 
 	/**
@@ -73,7 +84,7 @@ class Handler
 			}
 			else
 			{
-				echo "Something went wrong while copying the {$destination} file.\n";
+				echo "Something went wrong while copying the {$source} file.\n";
 			}
 		}
 		else
